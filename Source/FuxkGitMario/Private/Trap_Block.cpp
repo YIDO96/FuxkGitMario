@@ -19,11 +19,11 @@ void ATrap_Block::ActiveTrap(AActor* Player)
 {
 	Super::ActiveTrap(Player);
 	UE_LOG(LogTemp, Warning, TEXT("Trap Block Active Trap"));
-	FVector PlayerDownVector = -Player->GetActorUpVector();
+	FVector PlayerUpVector = Player->GetActorUpVector();
 	FVector ImpactDir = GetActorLocation() - Player->GetActorLocation();
 	ImpactDir.Normalize();
 
-	float DotProduct = FVector::DotProduct(PlayerDownVector, ImpactDir);
+	float DotProduct = FVector::DotProduct(PlayerUpVector, ImpactDir);
 	if(DotProduct > 0.5f)
 	{
 		FVector ForwardVector = Player->GetActorForwardVector();
@@ -31,7 +31,7 @@ void ATrap_Block::ActiveTrap(AActor* Player)
 		float AngleDegrees = FMath::RadiansToDegrees(Angle);
 		if(AngleDegrees <= 15.0f)
 		{
-			// 트랩 작동
+			// Trap Activation
 			UE_LOG(LogTemp, Warning, TEXT("Trap Block Active Trap"));
 			BoxComp->SetCollisionResponseToChannel(ECC_EngineTraceChannel1, ECR_Block);
 			MeshComp->SetMaterial(0, ExposeMat);
