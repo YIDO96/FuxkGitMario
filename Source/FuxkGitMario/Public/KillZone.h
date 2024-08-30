@@ -3,41 +3,37 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "TrapInterface.h"
 #include "GameFramework/Actor.h"
-#include "TrapBase.generated.h"
+#include "KillZone.generated.h"
 
 UCLASS()
-class FUXKGITMARIO_API ATrapBase : public AActor, public ITrapInterface
+class FUXKGITMARIO_API AKillZone : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	ATrapBase();
+	AKillZone();
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-	bool bIsActive;
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-	
-	virtual void ActiveTrap(AActor* Player) override;
 
-	UPROPERTY(EditAnywhere, Category = "Trap")
-	class UStaticMeshComponent* MeshComp;
-	
-	UPROPERTY(EditAnywhere, Category = "Trap")
+	UPROPERTY(EditAnywhere, Category = "KillZone")
 	class UBoxComponent* BoxComp;
 
+	UPROPERTY(EditAnywhere, Category="KillZone")
+	FVector KillZoneScale3D = FVector(50.0f);
+	
 	UFUNCTION()
-	void OnTrapOverlap(UPrimitiveComponent* OverlappedComponent,
+	void OnKillZoneOverlap(UPrimitiveComponent* OverlappedComponent,
 		AActor* OtherActor,
 		UPrimitiveComponent* OtherComp,
 		int32 OtherBodyIndex,
 		bool bFromSweep,
 		const FHitResult & SweepResult);
-private:
 };
