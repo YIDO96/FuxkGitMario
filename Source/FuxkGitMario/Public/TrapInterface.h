@@ -22,5 +22,5 @@ class FUXKGITMARIO_API ITrapInterface
 
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
-	virtual void ActiveTrap() = 0;
+	virtual void ActiveTrap(AActor* Player) = 0;
 };
