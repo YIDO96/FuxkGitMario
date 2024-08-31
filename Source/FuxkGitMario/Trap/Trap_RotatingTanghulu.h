@@ -4,22 +4,23 @@
 
 #include "CoreMinimal.h"
 #include "TrapBase.h"
-#include "Trap_UpDown.generated.h"
+#include "Trap_RotatingTanghulu.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class FUXKGITMARIO_API ATrap_UpDown : public ATrapBase
+class FUXKGITMARIO_API ATrap_RotatingTanghulu : public ATrapBase
 {
 	GENERATED_BODY()
+	
+public:
+	ATrap_RotatingTanghulu();
 
 protected:
 	virtual void BeginPlay() override;
 
 private:
-	bool IsActiveTrap = false;
-	float Time;
 
 public:
 	virtual void Tick(float DeltaTime) override;
@@ -27,4 +28,9 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	virtual void ActiveTrap(AActor* Player) override;
+
+
+
+	UPROPERTY(EditAnywhere, Category = "Trap")
+	class UStaticMeshComponent* MeshComp_Tanghulu;
 };

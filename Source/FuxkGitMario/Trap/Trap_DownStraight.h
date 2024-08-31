@@ -4,13 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "TrapBase.h"
-#include "Trap_UpDown.generated.h"
+#include "Trap_DownStraight.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class FUXKGITMARIO_API ATrap_UpDown : public ATrapBase
+class FUXKGITMARIO_API ATrap_DownStraight : public ATrapBase
 {
 	GENERATED_BODY()
 
@@ -18,9 +18,12 @@ protected:
 	virtual void BeginPlay() override;
 
 private:
-	bool IsActiveTrap = false;
-	float Time;
+	class APlayer_Mario* Target;
 
+	FVector Dir;
+	bool IsActiveTrap = false;
+	bool IsCollinear = false;
+	float Speed = 3000;
 public:
 	virtual void Tick(float DeltaTime) override;
 

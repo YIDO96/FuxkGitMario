@@ -6,6 +6,9 @@
 void ATrap_Straight::BeginPlay()
 {
 	Super::BeginPlay();
+
+	MeshComp->bHiddenInGame = true;
+	UE_LOG(LogTemp, Warning, TEXT("Mesh HiddenInGame = true"));
 }
 
 void ATrap_Straight::Tick(float DeltaTime)
@@ -14,7 +17,7 @@ void ATrap_Straight::Tick(float DeltaTime)
 
 	if (IsActiveTrap)
 	{
-		FVector newLocation = GetActorLocation() + -FVector::RightVector * 1000 * DeltaTime;
+		FVector newLocation = GetActorLocation() + -FVector::RightVector * 3000 * DeltaTime;
 		SetActorLocation(newLocation);
 	}
 }
@@ -22,4 +25,6 @@ void ATrap_Straight::Tick(float DeltaTime)
 void ATrap_Straight::ActiveTrap(AActor* Player)
 {
 	IsActiveTrap = true;
+	MeshComp->bHiddenInGame = false;
+	UE_LOG(LogTemp, Warning, TEXT("Mesh HiddenInGame = false"));
 }

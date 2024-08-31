@@ -4,13 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "TrapBase.h"
-#include "Trap_UpDown.generated.h"
+#include "Trap_Curve.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class FUXKGITMARIO_API ATrap_UpDown : public ATrapBase
+class FUXKGITMARIO_API ATrap_Curve : public ATrapBase
 {
 	GENERATED_BODY()
 
@@ -19,7 +19,6 @@ protected:
 
 private:
 	bool IsActiveTrap = false;
-	float Time;
 
 public:
 	virtual void Tick(float DeltaTime) override;

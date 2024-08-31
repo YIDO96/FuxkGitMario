@@ -14,20 +14,19 @@ void ATrap_UpDown::Tick(float DeltaTime)
 
 	if (IsActiveTrap)
 	{
-        FVector CurrentLocation = GetActorLocation();
+        FVector currentLocation = GetActorLocation();
+        Time += DeltaTime; // 0에서부터 시작하게 하기 위한 시간값
+        // Z 좌표를 속도에 따라 증가시킵니다.
+        //float Speed = 1000.0f; // Z축 이동 속도
+        //CurrentLocation.Z += Speed * DeltaTime;
 
-        // X 좌표를 속도에 따라 증가시킵니다.
-        float Speed = 1000.0f; // X축 이동 속도
-        CurrentLocation.Z += Speed * DeltaTime;
-
-        // Y 좌표를 사인파 형태로 변경합니다.
-        float Amplitude = 700.0f; // 사인파의 진폭
-        float Frequency = 2.0f; // 사인파의 주파수
-        float Time = GetWorld()->GetTimeSeconds(); // 경과 시간
-        CurrentLocation.Z = Amplitude * FMath::Sin(Frequency * Time);
+        // Z 좌표를 코사인파 형태로 변경합니다.
+        float amplitude = 1200.0f; // 코사인파의 진폭
+        float frequency = 3.5f; // 코사인파의 주파수
+        currentLocation.Z = amplitude * -FMath::Cos(frequency * Time);
 
         // 새로운 위치로 설정합니다.
-        SetActorLocation(CurrentLocation);
+        SetActorLocation(currentLocation);
 	}
 }
 
