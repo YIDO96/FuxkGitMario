@@ -35,7 +35,7 @@ public:
 
 	// MeshOverlap Function
 	UFUNCTION()
-	void OnTrapMeshOverlap(UPrimitiveComponent* OverlappedComponent,
+	virtual void OnTrapMeshOverlap(UPrimitiveComponent* OverlappedComponent,
 		AActor* OtherActor,
 		UPrimitiveComponent* OtherComp,
 		int32 OtherBodyIndex,

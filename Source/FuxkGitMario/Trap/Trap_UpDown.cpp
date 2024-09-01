@@ -14,19 +14,19 @@ void ATrap_UpDown::Tick(float DeltaTime)
 
 	if (IsActiveTrap)
 	{
-        FVector currentLocation = GetActorLocation();
-        Time += DeltaTime; // 0¿¡¼­ºÎÅÍ ½ÃÀÛÇÏ°Ô ÇÏ±â À§ÇÑ ½Ã°£°ª
-        // Z ÁÂÇ¥¸¦ ¼Óµµ¿¡ µû¶ó Áõ°¡½ÃÅµ´Ï´Ù.
-        //float Speed = 1000.0f; // ZÃà ÀÌµ¿ ¼Óµµ
-        //CurrentLocation.Z += Speed * DeltaTime;
+		FVector currentLocation = GetActorLocation();
+		Time += DeltaTime; // 0ì—ì„œë¶€í„° ì‹œì‘í•˜ê²Œ í•˜ê¸° ìœ„í•œ ì‹œê°„ê°’
+		// Z ì¢Œí‘œë¥¼ ì†ë„ì— ë”°ë¼ ì¦ê°€ì‹œí‚µë‹ˆë‹¤.
+		//float Speed = 1000.0f; // Zì¶• ì´ë™ ì†ë„
+		//CurrentLocation.Z += Speed * DeltaTime;
 
-        // Z ÁÂÇ¥¸¦ ÄÚ»çÀÎÆÄ ÇüÅÂ·Î º¯°æÇÕ´Ï´Ù.
-        float amplitude = 1200.0f; // ÄÚ»çÀÎÆÄÀÇ ÁøÆø
-        float frequency = 3.5f; // ÄÚ»çÀÎÆÄÀÇ ÁÖÆÄ¼ö
-        currentLocation.Z = amplitude * -FMath::Cos(frequency * Time);
+		// Z ì¢Œí‘œë¥¼ ì½”ì‚¬ì¸íŒŒ í˜•íƒœë¡œ ë³€ê²½í•©ë‹ˆë‹¤.
+		float amplitude = 1200.0f; // ì½”ì‚¬ì¸íŒŒì˜ ì§„í­
+		float frequency = 3.5f; // ì½”ì‚¬ì¸íŒŒì˜ ì£¼íŒŒìˆ˜
+		currentLocation.Z = amplitude * -FMath::Cos(frequency * Time);
 
-        // »õ·Î¿î À§Ä¡·Î ¼³Á¤ÇÕ´Ï´Ù.
-        SetActorLocation(currentLocation);
+		// ìƒˆë¡œìš´ ìœ„ì¹˜ë¡œ ì„¤ì •í•©ë‹ˆë‹¤.
+		SetActorLocation(currentLocation);
 	}
 }
 

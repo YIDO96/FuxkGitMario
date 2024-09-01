@@ -5,28 +5,28 @@
 
 void ATrap_Curve::BeginPlay()
 {
-	Super::BeginPlay();
+    Super::BeginPlay();
 }
 
 void ATrap_Curve::Tick(float DeltaTime)
 {
-	Super::Tick(DeltaTime);
+    Super::Tick(DeltaTime);
 
     if (IsActiveTrap)
     {
         FVector CurrentLocation = GetActorLocation();
 
-        // X ÁÂÇ¥¸¦ ¼Óµµ¿¡ µû¶ó Áõ°¡½ÃÅµ´Ï´Ù.
-        float Speed = 1000.0f; // XÃà ÀÌµ¿ ¼Óµµ
+        // X ì¢Œí‘œë¥¼ ì†ë„ì— ë”°ë¼ ì¦ê°€ì‹œí‚µë‹ˆë‹¤.
+        float Speed = 1000.0f; // Xì¶• ì´ë™ ì†ë„
         CurrentLocation.Y -= Speed * DeltaTime;
 
-        // Y ÁÂÇ¥¸¦ »çÀÎÆÄ ÇüÅÂ·Î º¯°æÇÕ´Ï´Ù.
-        float Amplitude = 700.0f; // »çÀÎÆÄÀÇ ÁøÆø
-        float Frequency = 2.0f; // »çÀÎÆÄÀÇ ÁÖÆÄ¼ö
-        float Time = GetWorld()->GetTimeSeconds(); // °æ°ú ½Ã°£
+        // Y ì¢Œí‘œë¥¼ ì‚¬ì¸íŒŒ í˜•íƒœë¡œ ë³€ê²½í•©ë‹ˆë‹¤.
+        float Amplitude = 700.0f; // ì‚¬ì¸íŒŒì˜ ì§„í­
+        float Frequency = 2.0f; // ì‚¬ì¸íŒŒì˜ ì£¼íŒŒìˆ˜
+        float Time = GetWorld()->GetTimeSeconds(); // ê²½ê³¼ ì‹œê°„
         CurrentLocation.Z = Amplitude * FMath::Sin(Frequency * Time);
 
-        // »õ·Î¿î À§Ä¡·Î ¼³Á¤ÇÕ´Ï´Ù.
+        // ìƒˆë¡œìš´ ìœ„ì¹˜ë¡œ ì„¤ì •í•©ë‹ˆë‹¤.
         SetActorLocation(CurrentLocation);
     }
 }

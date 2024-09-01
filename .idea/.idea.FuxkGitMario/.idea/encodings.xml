@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="Encoding" addBOMForNewFiles="with BOM under Windows, with no BOM otherwise" />
+  <component name="Encoding" addBOMForNewFiles="with BOM under Windows, with no BOM otherwise">
+    <file url="file://$PROJECT_DIR$/Source/FuxkGitMario/Player/Player_Mario.cpp" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Source/FuxkGitMario/Trap/Trap_Block.cpp" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Source/FuxkGitMario/Trap/Trap_Curve.cpp" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Source/FuxkGitMario/Trap/Trap_DownStraight.cpp" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Source/FuxkGitMario/Trap/Trap_UpDown.cpp" charset="UTF-8" />
+    <file url="PROJECT" charset="UTF-8" />
+  </component>
 </project>

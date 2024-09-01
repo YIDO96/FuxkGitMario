@@ -28,7 +28,8 @@ APlatformBase::APlatformBase()
 	{
 		MeshComp->SetMaterial(0, defaultMat.Object);
 	}
-
+	BoxComp->SetCollisionProfileName(TEXT("Platform"));
+	MeshComp->SetCollisionProfileName(TEXT("NoCollision"));
 }
 
 // Called when the game starts or when spawned

@@ -33,4 +33,13 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	class USpringArmComponent* SpringArmComp;
+	
+private:
+	UPROPERTY(VisibleAnywhere);
+	bool bIsDead = false;
+
+	UPROPERTY(VisibleAnywhere)
+	float DeathAnimationDuration = 3.0f;
+
+	float CurrentTime = 0;
 };

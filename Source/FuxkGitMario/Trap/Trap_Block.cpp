@@ -19,33 +19,40 @@ void ATrap_Block::ActiveTrap(AActor* Player)
 {
 	Super::ActiveTrap(Player);
 	UE_LOG(LogTemp, Warning, TEXT("Trap Block Active Trap"));
-	FVector PlayerUpVector = Player->GetActorUpVector(); // PlayerÀÇ UpVector°¡Á®¿À±â
-	FVector ImpactDir = GetActorLocation() - Player->GetActorLocation(); // Player -> TrapÀÇ ¹æÇâº¤ÅÍ
+	FVector PlayerUpVector = Player->GetActorUpVector(); // Playerì˜ UpVectorê°€ì ¸ì˜¤ê¸°
+	FVector ImpactDir = GetActorLocation() - Player->GetActorLocation(); // Player -> Trapì˜ ë°©í–¥ë²¡í„°
 	ImpactDir.Normalize();
 
-	float DotProduct = FVector::DotProduct(PlayerUpVector, ImpactDir); // (0,0,1) º¤ÅÍ¿Í ¹æÇâº¤ÅÍÀÇ ³»Àû°ª
+	float DotProduct = FVector::DotProduct(PlayerUpVector, ImpactDir); // (0,0,1) ë²¡í„°ì™€ ë°©í–¥ë²¡í„°ì˜ ë‚´ì ê°’
 	//UE_LOG(LogTemp, Warning, TEXT("DotProduct_PlayerUpVector-ImpactDir : %.2f"), DotProduct);
 
 	if(DotProduct > 0.5f)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Success DotProduct > 0.5f"));
-		//FVector ForwardVector = Player->GetActorForwardVector(); // PlayerÀÇ ¾Õ¹æÇâ º¤ÅÍ
-		FVector ForwardVector = Player->GetActorRightVector(); // PlayerÀÇ ¾Õ¹æÇâ º¤ÅÍ
+		//FVector ForwardVector = Player->GetActorForwardVector(); // Playerì˜ ì•ë°©í–¥ ë²¡í„°
+		FVector ForwardVector = Player->GetActorRightVector(); // Playerì˜ ì•ë°©í–¥ ë²¡í„°
 		//float DotProduct11 = FVector::DotProduct(ImpactDir, ForwardVector);
-		float Angle = FMath::Acos(FVector::DotProduct(ImpactDir, ForwardVector)); // (0,1,0) º¤ÅÍ¿Í ¹æÇâº¤ÅÍÀÇ ³»Àû°ª ACosÀÇ Radian°ª
+		float Angle = FMath::Acos(FVector::DotProduct(ImpactDir, ForwardVector)); // (0,1,0) ë²¡í„°ì™€ ë°©í–¥ë²¡í„°ì˜ ë‚´ì ê°’ ACosì˜ Radianê°’
 		//UE_LOG(LogTemp, Warning, TEXT("Player's ForwardVector x : %.2f, y : %.2f, z : %.2f"), ForwardVector.X, ForwardVector.Y, ForwardVector.Z);
 		//UE_LOG(LogTemp, Warning, TEXT("DotProduct11_ImpactDir-ForwardVector : %.2f"), DotProduct11);
 		//UE_LOG(LogTemp, Warning, TEXT("Angle_ImpactDir-ForwardVector : %.2f"), Angle);
 
-		float AngleDegrees = FMath::RadiansToDegrees(Angle); // RadianÀ» degree°ªÀ¸·Î º¯°æ
+		float AngleDegrees = FMath::RadiansToDegrees(Angle); // Radianì„ degreeê°’ìœ¼ë¡œ ë³€ê²½
 		//UE_LOG(LogTemp, Warning, TEXT("AngleDegrees : %.2f"), AngleDegrees);
-		if(AngleDegrees >= 15.0f) // ÇÃ·¹ÀÌ¾î ¾Õ¹æÇâ°ú ¹æÇâº¤ÅÍÀÇ »çÀÌ°¢ÀÌ 15µµ ÀÌ»óÀÌ¸é (¿·¿¡¼­ ¿À¹ö·¦ÀÌ µÈ°Ô ¾Æ´Ï¶ó¸é..?)
+		if(AngleDegrees >= 15.0f) // í”Œë ˆì´ì–´ ì•ë°©í–¥ê³¼ ë°©í–¥ë²¡í„°ì˜ ì‚¬ì´ê°ì´ 15ë„ ì´ìƒì´ë©´ (ì˜†ì—ì„œ ì˜¤ë²„ë©ì´ ëœê²Œ ì•„ë‹ˆë¼ë©´..?)
 		{
 			// Trap Activation
 			UE_LOG(LogTemp, Warning, TEXT("Success AngleDegree <= 15.0f"));
-			BoxComp->SetCollisionResponseToChannel(ECC_EngineTraceChannel1, ECR_Block); // CollisionChannelÀ» BlockÀ¸·Î º¯°æ
-			MeshComp->SetMaterial(0, ExposeMat); // Material º¯°æ
+			//BoxComp->SetCollisionResponseToChannel(ECC_EngineTraceChannel1, ECR_Block);
+			MeshComp->SetCollisionResponseToAllChannels(ECR_Block);
+			MeshComp->SetCollisionObjectType(ECC_EngineTraceChannel3); //Collision í”„ë¡œí•„ Platformìœ¼ë¡œ ë³€ê²½
+			MeshComp->SetMaterial(0, ExposeMat); // Material ë³€ê²½
 		}
 	}
 }
 
+void ATrap_Block::OnTrapMeshOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
+	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	//Super::OnTrapMeshOverlap(OverlappedComponent, OtherActor, OtherComp, OtherBodyIndex, bFromSweep, SweepResult);
+}

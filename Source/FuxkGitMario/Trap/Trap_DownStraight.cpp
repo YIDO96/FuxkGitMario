@@ -15,14 +15,14 @@ void ATrap_DownStraight::Tick(float DeltaTime)
 
 	if (IsActiveTrap)
 	{
-		if (not IsCollinear) Dir = FVector::DownVector; // ÇÃ·¹ÀÌ¾î¿Í µ¿ÀÏ¼±»óÀÌ ¾Æ´Ï¶ó¸é ¾Æ·¡·Î¸¸ ³»·Á°¡¶ó
+		if (not IsCollinear) Dir = FVector::DownVector; // í”Œë ˆì´ì–´ì™€ ë™ì¼ì„ ìƒì´ ì•„ë‹ˆë¼ë©´ ì•„ë˜ë¡œë§Œ ë‚´ë ¤ê°€ë¼
 		
-		// ÇÃ·¹ÀÌ¾î¿Í µ¿ÀÏ ¼±»óÀÌ¶ó¸é
+		// í”Œë ˆì´ì–´ì™€ ë™ì¼ ì„ ìƒì´ë¼ë©´
 		if (GetActorLocation().Z <= Target->GetActorLocation().Z)
 		{
 			Dir = -FVector::RightVector;
 			Speed = 4500.0f;
-			IsCollinear = true; // ÇÃ·¹ÀÌ¾î¿Í µ¿ÀÏ¼±»óÀÌ ÇÑ¹øÀÌ¶óµµ ‰çÀ¸¸é ±×³É ÁÂÃø¹æÇâÀ¸·Î Âß ³¯¶ó°¡°Ô ÇÏ±â À§ÇÑ Á¦¾î°ª
+			IsCollinear = true; // í”Œë ˆì´ì–´ì™€ ë™ì¼ì„ ìƒì´ í•œë²ˆì´ë¼ë„ ë¬ìœ¼ë©´ ê·¸ëƒ¥ ì¢Œì¸¡ë°©í–¥ìœ¼ë¡œ ì­‰ ë‚ ë¼ê°€ê²Œ í•˜ê¸° ìœ„í•œ ì œì–´ê°’
 		}
 
 		FVector newLocation = GetActorLocation() + Dir * Speed * DeltaTime;

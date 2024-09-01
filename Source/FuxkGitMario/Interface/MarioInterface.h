@@ -7,7 +7,7 @@
 #include "MarioInterface.generated.h"
 
 // This class does not need to be modified.
-UINTERFACE(MinimalAPI)
+UINTERFACE(MinimalAPI, Blueprintable)
 class UMarioInterface : public UInterface
 {
 	GENERATED_BODY()

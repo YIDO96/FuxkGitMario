@@ -19,7 +19,7 @@ ATrapBase::ATrapBase()
 	BoxComp->SetupAttachment(MeshComp);
 	BoxComp->SetBoxExtent(FVector(50.0f, 50.0f, 50.0f));
 	
-	ConstructorHelpers::FObjectFinder<UStaticMesh>InitMesh(TEXT("/Script/Engine.StaticMesh'/Game/StarterContent/Shapes/Shape_Cube.Shape_Cube'"));
+	ConstructorHelpers::FObjectFinder<UStaticMesh>InitMesh(TEXT("/Script/Engine.StaticMesh'/Engine/BasicShapes/Cube.Cube'"));
 	MeshComp->SetStaticMesh(InitMesh.Object);
 	
 	MeshComp->SetCollisionProfileName(TEXT("Trap"));
@@ -53,18 +53,18 @@ void ATrapBase::ActiveTrap(AActor* Player)
 void ATrapBase::OnTrapMeshOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	IMarioInterface* Mario = Cast<IMarioInterface>(OtherActor); // OtherActor¸¦ IMarioInterface·Î Çüº¯È¯
-	if (Mario) // Çüº¯È¯ÀÌ ¼º°øÇß´Ù¸é
+	IMarioInterface* Mario = Cast<IMarioInterface>(OtherActor); // OtherActorë¥¼ IMarioInterfaceë¡œ í˜•ë³€í™˜
+	if (Mario) // í˜•ë³€í™˜ì´ ì„±ê³µí–ˆë‹¤ë©´
 	{
-		Mario->Die(); // Mario(Player_Mario)ÀÇ DieÇÔ¼ö È£Ãâ
+		Mario->Die(); // Mario(Player_Mario)ì˜ Dieí•¨ìˆ˜ í˜¸ì¶œ
 	}
 }
 
 void ATrapBase::OnTrapBoxOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	IMarioInterface* Mario = Cast<IMarioInterface>(OtherActor); // OtherActor¸¦ IMarioInterface·Î Çüº¯È¯
-	if (Mario) // Çüº¯È¯ÀÌ ¼º°øÇß´Ù¸é
+	IMarioInterface* Mario = Cast<IMarioInterface>(OtherActor); // OtherActorë¥¼ IMarioInterfaceë¡œ í˜•ë³€í™˜
+	if (Mario) // í˜•ë³€í™˜ì´ ì„±ê³µí–ˆë‹¤ë©´
 	{
-		ActiveTrap(OtherActor); //ºÎµúÈù TrapÀÇ ActiveTrapÇÔ¼ö È£Ãâ (OtherActor´Â Player_Mario)
+		ActiveTrap(OtherActor); //ë¶€ë”ªíŒ Trapì˜ ActiveTrapí•¨ìˆ˜ í˜¸ì¶œ (OtherActorëŠ” Player_Mario)
 	}
 }
