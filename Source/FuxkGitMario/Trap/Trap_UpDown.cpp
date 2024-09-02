@@ -21,8 +21,8 @@ void ATrap_UpDown::Tick(float DeltaTime)
 		//CurrentLocation.Z += Speed * DeltaTime;
 
 		// Z 좌표를 코사인파 형태로 변경합니다.
-		float amplitude = 1200.0f; // 코사인파의 진폭
-		float frequency = 3.5f; // 코사인파의 주파수
+		float amplitude = TrapRange; // 코사인파의 진폭
+		float frequency = TrapSpeed; // 코사인파의 주파수
 		currentLocation.Z = amplitude * -FMath::Cos(frequency * Time);
 
 		// 새로운 위치로 설정합니다.
