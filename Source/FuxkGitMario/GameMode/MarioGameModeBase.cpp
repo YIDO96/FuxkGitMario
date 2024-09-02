@@ -3,3 +3,10 @@
 
 #include "MarioGameModeBase.h"
 
+void AMarioGameModeBase::BeginPlay()
+{
+	Super::BeginPlay();
+
+
+	
+}

@@ -13,5 +13,11 @@ UCLASS()
 class FUXKGITMARIO_API AMarioGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
-	
+
+protected:
+	virtual void BeginPlay() override;
+
+
+public:
+	FVector Start;
 };

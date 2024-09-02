@@ -36,7 +36,13 @@ APlatformBase::APlatformBase()
 void APlatformBase::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+	float randomNumber = FMath::RandRange(1,100);
+
+	if (randomNumber >= 30)
+	{
+		
+	}
 }
 
 // Called every frame
