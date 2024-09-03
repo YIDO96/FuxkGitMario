@@ -51,6 +51,7 @@ void APlayer_Mario::Tick(float DeltaTime)
 			
 		}
 	}
+	
 }
 
 void APlayer_Mario::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
