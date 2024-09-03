@@ -24,9 +24,12 @@ public:
 
 	bool IsCreate = true;
 
-	UPROPERTY(EditAnywhere)
-	TSubclassOf<class APlatformBase> PlatformFactory;
+	//UPROPERTY(EditAnywhere)
+	//TSubclassOf<class APlatformBase> PlatformFactory;
 
 	UPROPERTY(EditAnywhere, Category = "Size")
 	int Size = 1000;
+
+
+	void CreateMap();
 };

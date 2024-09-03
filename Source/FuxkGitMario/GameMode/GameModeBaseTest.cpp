@@ -8,12 +8,26 @@
 void AGameModeBaseTest::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	CreateMap();
 	// 10개의 Platform을 생성하기
 	// 1. 10개의 Loop문
-	UE_LOG(LogTemp, Warning, TEXT("GameModeBaseTest BeginPlay"));
-	TArray<bool> bTemp;
-	TArray<int> bFloor;
+}
+
+void AGameModeBaseTest::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+	UE_LOG(LogTemp, Error, TEXT("GameModeBaseTest Tick"));
+	if (IsCreate)
+	{
+		UE_LOG(LogTemp, Error, TEXT("GameModeBaseTest Tick"));
+		IsCreate = false;
+	}
+}
+
+void AGameModeBaseTest::CreateMap()
+{
+	TArray<bool> bTemp; // 첫째줄에 생성됬는지
+	TArray<int> bFloor; // 몇층으로 구성되어있는지
 
 	
 	for (int i =0 ; i < Size ; i++)
@@ -29,7 +43,7 @@ void AGameModeBaseTest::BeginPlay()
 			bTemp.Emplace(true);
 			bFloor.Emplace(1);
 		}
-		else
+		else // 두번째 타일부터
 		{
 			int randomNumber = FMath::RandRange(0, 100);
 			if (randomNumber >= 50) // 50% 확률로 바닥 생성
@@ -37,7 +51,7 @@ void AGameModeBaseTest::BeginPlay()
 				auto f = GetWorld()->SpawnActor<APlatformBase>(APlatformBase::StaticClass(),
 					FVector(0,100 * i,0), FRotator::ZeroRotator);
 				bTemp.Emplace(true);
-				if (bFloor[i-1] >= 1)
+				if (bFloor[i-1] >= 1) // 전 칸이 1층 이상이라면.. 
 				{
 					for (int j = 1 ; j < bFloor[i-1] ; j++)
 					{
@@ -66,24 +80,13 @@ void AGameModeBaseTest::BeginPlay()
 				bTemp.Emplace(false);
 				bFloor.Emplace(0);
 				int randomNumber2 = FMath::RandRange(0, 100);
-				if (randomNumber2 >= 50) // 50% 확률로 높이 400 위치에 발판 생성
+				if (randomNumber2 >= 60) // 40% 확률로 높이 250 ~ 390 위치에 발판 생성
 				{
 					auto f = GetWorld()->SpawnActor<APlatformBase>(APlatformBase::StaticClass(),
-					FVector(0,100 * i,400), FRotator::ZeroRotator);
+					FVector(0,100 * i,FMath::RandRange(250,390)), FRotator::ZeroRotator);
 				}
 			}
 		}
 	}
 	
-}
-
-void AGameModeBaseTest::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-	UE_LOG(LogTemp, Error, TEXT("GameModeBaseTest Tick"));
-	if (IsCreate)
-	{
-		UE_LOG(LogTemp, Error, TEXT("GameModeBaseTest Tick"));
-		IsCreate = false;
-	}
 }
