@@ -34,7 +34,7 @@ public:
 	TSubclassOf<ABullet> BulletFactory;
 
 	UFUNCTION()
-	void OnTrapSphereOverlap(UPrimitiveComponent* OverlappedComponent,
+	virtual void OnTrapSphereOverlap(UPrimitiveComponent* OverlappedComponent,
 		AActor* OtherActor,
 		UPrimitiveComponent* OtherComp,
 		int32 OtherBodyIndex,
@@ -45,7 +45,7 @@ private:
 	UPROPERTY(EditAnywhere, Category = "Enemy")
 	float FireRate = 3.0f;
 
-	float CurrentTime;
+	float CurrentTime = 0.0f;
 
 	UFUNCTION(BlueprintCallable, Category = "Enemy")
 	void Fire();

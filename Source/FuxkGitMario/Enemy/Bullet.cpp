@@ -4,6 +4,8 @@
 #include "Bullet.h"
 #include "Components/SphereComponent.h"
 #include "Interface/MarioInterface.h"
+#include "Kismet/GameplayStatics.h"
+#include "Player/Player_Mario.h"
 
 
 // Sets default values
@@ -31,7 +33,7 @@ ABullet::ABullet()
 void ABullet::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	TargetLocation = UGameplayStatics::GetActorOfClass(GetWorld(), APlayer_Mario::StaticClass())->GetActorLocation();
 	SphereComp->OnComponentBeginOverlap.AddDynamic(this, &ABullet::OnTrapSphereOverlap);
 	// 타이머 설정, 반복 호출할 함수와 반복 간격 지정
 	GetWorldTimerManager().SetTimer(BulletTimer, this, &ABullet::BulletCurve, 0.02f, true);
@@ -43,13 +45,8 @@ void ABullet::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 }
 
-void ABullet::SetTargetLocation(FVector TargetLoc)
-{
-	TargetLocation = TargetLoc;
-}
-
 void ABullet::OnTrapSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
-	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+                                  UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	IMarioInterface* Mario = Cast<IMarioInterface>(OtherActor);
 	if(Mario)

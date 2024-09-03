@@ -66,6 +66,5 @@ void AEnemyBase::OnTrapSphereOverlap(UPrimitiveComponent* OverlappedComponent, A
 void AEnemyBase::Fire()
 {
 	ABullet* bullet = GetWorld()->SpawnActor<ABullet>(BulletFactory, GetActorLocation(), GetActorRotation());
-	bullet->SetTargetLocation(UGameplayStatics::GetActorOfClass(GetWorld(), APlayer_Mario::StaticClass())->GetActorLocation());
 }
 

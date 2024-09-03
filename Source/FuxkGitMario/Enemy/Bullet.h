@@ -35,9 +35,6 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Bullet")
 	float BulletAmplitude = 45.0f;
 
-	UFUNCTION(BlueprintCallable, Category = "Bullet")
-	virtual void SetTargetLocation(FVector TargetLoc);
-
 	UFUNCTION()
 	void OnTrapSphereOverlap(UPrimitiveComponent* OverlappedComponent,
 		AActor* OtherActor,
@@ -48,12 +45,11 @@ public:
 	UFUNCTION()
 	void BulletCurve();
 	
+	FVector TargetLocation;
+	
 private:
 	
 	float CurrentTime;
 
 	FTimerHandle BulletTimer;
-	
-	UPROPERTY()
-	FVector TargetLocation;
 };
