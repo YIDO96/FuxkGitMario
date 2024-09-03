@@ -14,7 +14,7 @@ class FUXKGITMARIO_API ULifeWidget : public UUserWidget
 {
 	GENERATED_BODY()
 
-	/*UPROPERTY(EditAnywhere, meta = (BindWidget))
-	class UTextBlock* scoreText;*/
-	
+public:
+	UPROPERTY(EditAnywhere, meta = (BindWidget))
+	class UTextBlock* LifeData;
 };
