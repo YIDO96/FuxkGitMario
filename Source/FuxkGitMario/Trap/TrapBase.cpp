@@ -17,7 +17,7 @@ ATrapBase::ATrapBase()
 	
 	BoxComp = CreateDefaultSubobject<UBoxComponent>(TEXT("EventTriggerBox"));
 	BoxComp->SetupAttachment(MeshComp);
-	BoxComp->SetBoxExtent(FVector(50.0f, 50.0f, 50.0f));
+	BoxComp->SetBoxExtent(FVector(50.0f, 40.0f, 50.0f));
 	
 	ConstructorHelpers::FObjectFinder<UStaticMesh>InitMesh(TEXT("/Script/Engine.StaticMesh'/Engine/BasicShapes/Cube.Cube'"));
 	MeshComp->SetStaticMesh(InitMesh.Object);
