@@ -21,7 +21,7 @@ void ATrap_DownStraight::Tick(float DeltaTime)
 		if (GetActorLocation().Z <= Target->GetActorLocation().Z)
 		{
 			Dir = -FVector::RightVector;
-			Speed = 4500.0f;
+			Speed = TrapSpeed;
 			IsCollinear = true; // 플레이어와 동일선상이 한번이라도 됬으면 그냥 좌측방향으로 쭉 날라가게 하기 위한 제어값
 		}
 
