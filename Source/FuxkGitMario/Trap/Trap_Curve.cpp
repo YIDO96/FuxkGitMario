@@ -12,7 +12,7 @@ void ATrap_Curve::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);
 
-    if (IsActiveTrap)
+    if (bIsActive)
     {
         FVector CurrentLocation = GetActorLocation();
 
@@ -31,7 +31,7 @@ void ATrap_Curve::Tick(float DeltaTime)
     }
 }
 
-void ATrap_Curve::ActiveTrap(AActor* Player)
+void ATrap_Curve::ActiveTrap()
 {
-    IsActiveTrap = true;
+    bIsActive = true;
 }

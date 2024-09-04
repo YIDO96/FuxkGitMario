@@ -12,7 +12,7 @@ void ATrap_UpDown::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	if (IsActiveTrap)
+	if (bIsActive)
 	{
 		FVector currentLocation = GetActorLocation();
 		Time += DeltaTime; // 0에서부터 시작하게 하기 위한 시간값
@@ -32,8 +32,8 @@ void ATrap_UpDown::Tick(float DeltaTime)
 	}
 }
 
-void ATrap_UpDown::ActiveTrap(AActor* Player)
+void ATrap_UpDown::ActiveTrap()
 {
-	IsActiveTrap = true;
+	bIsActive = true;
 	MeshComp->SetHiddenInGame(false);
 }

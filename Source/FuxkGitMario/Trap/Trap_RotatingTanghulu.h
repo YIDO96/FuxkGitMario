@@ -24,13 +24,7 @@ private:
 
 public:
 	virtual void Tick(float DeltaTime) override;
-
-
-	UFUNCTION(BlueprintCallable)
-	virtual void ActiveTrap(AActor* Player) override;
-
-
-
+	
 	UPROPERTY(EditAnywhere, Category = "Trap")
 	class UStaticMeshComponent* MeshComp_Tanghulu;
 };

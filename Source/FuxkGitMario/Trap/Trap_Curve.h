@@ -18,12 +18,11 @@ protected:
 	virtual void BeginPlay() override;
 
 private:
-	bool IsActiveTrap = false;
 
 public:
 	virtual void Tick(float DeltaTime) override;
 
 
 	UFUNCTION(BlueprintCallable)
-	virtual void ActiveTrap(AActor* Player) override;
+	virtual void ActiveTrap()override;
 };

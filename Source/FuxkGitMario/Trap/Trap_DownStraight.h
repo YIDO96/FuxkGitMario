@@ -21,7 +21,6 @@ private:
 	class APlayer_Mario* Target;
 
 	FVector Dir;
-	bool IsActiveTrap = false;
 	bool IsCollinear = false;
 	float Speed = 3000;
 public:

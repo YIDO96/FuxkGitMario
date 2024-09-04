@@ -19,7 +19,6 @@ protected:
 	virtual void BeginPlay() override;
 
 private:
-	bool IsActiveTrap = false;
 
 public:
 	virtual void Tick(float DeltaTime) override;
@@ -28,6 +27,6 @@ public:
 	float Speed = 3000;
 
 	UFUNCTION(BlueprintCallable)
-	virtual void ActiveTrap(AActor* Player) override;
+	virtual void ActiveTrap() override;
 
 };

@@ -13,7 +13,7 @@ void ATrap_DownStraight::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	if (IsActiveTrap)
+	if (bIsActive)
 	{
 		if (not IsCollinear) Dir = FVector::DownVector; // 플레이어와 동일선상이 아니라면 아래로만 내려가라
 		
@@ -32,6 +32,6 @@ void ATrap_DownStraight::Tick(float DeltaTime)
 
 void ATrap_DownStraight::ActiveTrap(AActor* Player)
 {
-	IsActiveTrap = true;
+	bIsActive = true;
 	Target = Cast<APlayer_Mario>(Player);
 }

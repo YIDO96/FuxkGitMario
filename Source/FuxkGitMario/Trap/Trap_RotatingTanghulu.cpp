@@ -33,7 +33,3 @@ void ATrap_RotatingTanghulu::Tick(float DeltaTime)
 	FRotator newRotation = BoxComp->GetRelativeRotation() + FRotator(0, 0, 1) * TrapSpeed  * DeltaTime;
 	BoxComp->SetRelativeRotation(newRotation);
 }
-
-void ATrap_RotatingTanghulu::ActiveTrap(AActor* Player)
-{
-}

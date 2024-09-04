@@ -12,14 +12,14 @@ void ATrap_Down::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	if (IsActiveTrap)
+	if (bIsActive)
 	{
 		FVector newLocation = GetActorLocation() + FVector::DownVector * Speed * DeltaTime;
 		SetActorLocation(newLocation);
 	}
 }
 
-void ATrap_Down::ActiveTrap(AActor* Player)
+void ATrap_Down::ActiveTrap()
 {
-	IsActiveTrap = true;
+	bIsActive = true;
 }

@@ -32,6 +32,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	
 	virtual void ActiveTrap(AActor* Player) override;
+	virtual void ActiveTrap() override;
 
 	UPROPERTY(EditAnywhere, Category = "Trap")
 	class UStaticMeshComponent* MeshComp;
@@ -39,6 +40,9 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Trap")
 	class UBoxComponent* BoxComp;
 
+	UPROPERTY(EditAnywhere, Category = "Trap")
+	FVector StartLocation; // 처음 위치값
+	
 	// MeshOverlap Function
 	UFUNCTION()
 	virtual void OnTrapMeshOverlap(UPrimitiveComponent* OverlappedComponent,

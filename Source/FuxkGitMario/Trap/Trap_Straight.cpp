@@ -8,14 +8,14 @@ void ATrap_Straight::BeginPlay()
 	Super::BeginPlay();
 
 	MeshComp->bHiddenInGame = true;
-	UE_LOG(LogTemp, Warning, TEXT("Mesh HiddenInGame = true"));
+	MeshComp->SetCollisionProfileName(TEXT("NoCollision"));
 }
 
 void ATrap_Straight::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	if (IsActiveTrap)
+	if (bIsActive)
 	{
 		//FVector newLocation = GetActorLocation() + -FVector::RightVector * Speed * DeltaTime;
 		FVector newLocation = GetActorLocation() + -FVector::RightVector * TrapSpeed * DeltaTime;
@@ -23,9 +23,9 @@ void ATrap_Straight::Tick(float DeltaTime)
 	}
 }
 
-void ATrap_Straight::ActiveTrap(AActor* Player)
+void ATrap_Straight::ActiveTrap()
 {
-	IsActiveTrap = true;
+	bIsActive = true;
 	MeshComp->bHiddenInGame = false;
-	UE_LOG(LogTemp, Warning, TEXT("Mesh HiddenInGame = false"));
+	MeshComp->SetCollisionProfileName(TEXT("Trap"));
 }

@@ -36,6 +36,8 @@ void ATrapBase::BeginPlay()
 	
 	MeshComp->OnComponentBeginOverlap.AddDynamic(this, &ATrapBase::OnTrapMeshOverlap);
 	BoxComp->OnComponentBeginOverlap.AddDynamic(this, &ATrapBase::OnTrapBoxOverlap);
+
+	StartLocation = GetActorLocation();
 }
 
 // Called every frame
@@ -50,8 +52,12 @@ void ATrapBase::ActiveTrap(AActor* Player)
 	
 }
 
+void ATrapBase::ActiveTrap()
+{
+}
+
 void ATrapBase::OnTrapMeshOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
-	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+                                  UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	IMarioInterface* Mario = Cast<IMarioInterface>(OtherActor); // OtherActor를 IMarioInterface로 형변환
 	if (Mario) // 형변환이 성공했다면

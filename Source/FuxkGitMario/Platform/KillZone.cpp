@@ -4,6 +4,8 @@
 #include "KillZone.h"
 
 #include "Components/BoxComponent.h"
+#include "Interface/MarioInterface.h"
+#include "Trap/TrapBase.h"
 
 // Sets default values
 AKillZone::AKillZone()
@@ -37,5 +39,18 @@ void AKillZone::Tick(float DeltaTime)
 void AKillZone::OnKillZoneOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	OtherActor->Destroy();
+	// 충돌한 액터가 플레이어라면
+	auto player = Cast<IMarioInterface>(OtherActor);
+	if (player)
+	{
+		player->Die();
+	}
+
+	// 충돌한 액터가 Trap이라면
+	auto trap = Cast<ATrapBase>(OtherActor);
+	if (trap)
+	{
+		OtherActor->SetActorLocation(trap->StartLocation);
+	}
+	//OtherActor->Destroy();
 }

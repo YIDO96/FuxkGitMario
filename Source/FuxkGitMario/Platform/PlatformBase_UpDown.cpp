@@ -3,6 +3,14 @@
 
 #include "Platform/PlatformBase_UpDown.h"
 
+#include "Components/BoxComponent.h"
+
+APlatformBase_UpDown::APlatformBase_UpDown()
+{
+	BoxComp->SetWorldScale3D(FVector(1,0.5,1));
+	MeshComp->SetWorldScale3D(FVector(1,2,1));
+}
+
 void APlatformBase_UpDown::BeginPlay()
 {
 	Super::BeginPlay();
@@ -16,15 +24,36 @@ void APlatformBase_UpDown::Tick(float DeltaTime)
 	if (IsActiveEvent)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("IsActiveEvent is True"));
-		if (randomNumber > 50)
+		if (Type == EPlatformUPDownType::Platform_Default)
 		{
-			FVector newLocation = GetActorLocation() + FVector::DownVector * Speed * DeltaTime;
-			SetActorLocation(newLocation);
+			if (randomNumber > 50)
+			{
+				DownMove();
+			}
+			else
+			{
+				UpMove();
+			}
+		}
+		else if(Type == EPlatformUPDownType::Platform_Down)
+		{
+			DownMove();
 		}
 		else
 		{
-			FVector newLocation = GetActorLocation() + FVector::UpVector * Speed * DeltaTime;
-			SetActorLocation(newLocation);
+			UpMove();
 		}
 	}
+}
+
+void APlatformBase_UpDown::UpMove()
+{
+	FVector newLocation = GetActorLocation() + FVector::UpVector * Speed * GetWorld()->DeltaTimeSeconds;
+	SetActorLocation(newLocation);
+}
+
+void APlatformBase_UpDown::DownMove()
+{
+	FVector newLocation = GetActorLocation() + FVector::DownVector * Speed * GetWorld()->DeltaTimeSeconds;
+	SetActorLocation(newLocation);
 }
