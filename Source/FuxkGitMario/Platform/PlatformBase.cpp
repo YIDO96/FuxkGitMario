@@ -29,6 +29,7 @@ APlatformBase::APlatformBase()
 		MeshComp->SetMaterial(0, defaultMat.Object);
 	}
 	BoxComp->SetCollisionProfileName(TEXT("Platform"));
+	BoxComp->SetBoxExtent(FVector(50));
 	MeshComp->SetCollisionProfileName(TEXT("NoCollision"));
 }
 
@@ -36,7 +37,13 @@ APlatformBase::APlatformBase()
 void APlatformBase::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+	float randomNumber = FMath::RandRange(1,100);
+
+	if (randomNumber >= 30)
+	{
+		
+	}
 }
 
 // Called every frame

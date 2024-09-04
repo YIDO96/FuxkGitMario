@@ -39,7 +39,7 @@ private:
 	bool bIsDead = false;
 
 	UPROPERTY(VisibleAnywhere)
-	float DeathAnimationDuration = 3.0f;
+	float DeathAnimationDuration = 1.5f;
 
 	float CurrentTime = 0;
 };
