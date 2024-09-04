@@ -17,7 +17,7 @@ void ATrap_Straight::Tick(float DeltaTime)
 
 	if (IsActiveTrap)
 	{
-		FVector newLocation = GetActorLocation() + -FVector::RightVector * 3000 * DeltaTime;
+		FVector newLocation = GetActorLocation() + -FVector::RightVector * Speed * DeltaTime;
 		SetActorLocation(newLocation);
 	}
 }
