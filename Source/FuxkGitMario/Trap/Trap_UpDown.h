@@ -27,10 +27,4 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	virtual void ActiveTrap(AActor* Player) override;
-
-	UPROPERTY(EditAnywhere)
-	float amplitude = 1200.0f; // 코사인파의 진폭
-	
-	UPROPERTY(EditAnywhere)
-	float frequency = 3.5f; // 코사인파의 주파수
 };
