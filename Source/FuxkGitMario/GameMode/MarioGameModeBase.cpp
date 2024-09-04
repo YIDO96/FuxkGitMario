@@ -6,6 +6,12 @@
 #include "UI/LifeWidget.h"
 #include "Components/TextBlock.h"
 #include "Kismet/GameplayStatics.h"
+#include "TimerManager.h"
+#include "GameFramework/PlayerController.h"
+#include "GameFramework/PlayerStart.h"
+#include "GameFramework/Character.h"
+#include "EngineUtils.h"
+#include "UI/StartWidget.h"
 
 void AMarioGameModeBase::MinusLife(int32 point)
 {
@@ -40,7 +46,38 @@ void AMarioGameModeBase::GameOver()
 		{
 			LifeUI->AddToViewport();
 
-			UGameplayStatics::SetGamePaused(GetWorld(), true); // 게임 포즈
+			//UGameplayStatics::SetGamePaused(GetWorld(), true); // 게임 포즈
+
+			// 게임 재시작
+			// 3초 후에 HideUIAndRestart 함수를 호출하도록 타이머 설정
+			GetWorld()->GetTimerManager().SetTimer(RestartTimerHandle, this, &AMarioGameModeBase::HideUIAndRestart, 3.0f, false);
 		}
 	}
+}
+
+void AMarioGameModeBase::BeginPlay()
+{
+	Super::BeginPlay();
+
+	StartUI = CreateWidget<UStartWidget>(GetWorld(), StartWidget);
+	if (StartUI)
+	{
+		StartUI->AddToViewport();
+	}
+
+	// 입력모드를 UI 로 설정해주기
+	GetWorld()->GetFirstPlayerController()->SetInputMode(FInputModeUIOnly());
+}
+
+void AMarioGameModeBase::HideUIAndRestart()
+{
+	// UI를 제거합니다.
+	if (LifeUI != nullptr)
+	{
+		LifeUI->RemoveFromViewport();
+		LifeUI = nullptr;
+	}
+
+	UE_LOG(LogTemp, Warning, TEXT("Game Resumed!"));
+	UGameplayStatics::OpenLevel(this, FName("TrapTest"));
 }

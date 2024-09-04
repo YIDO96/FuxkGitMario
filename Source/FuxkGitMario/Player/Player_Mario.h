@@ -30,16 +30,24 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	class UCameraComponent* Camera;
-
+	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	class USpringArmComponent* SpringArmComp;
 	
 private:
+
+	// 타이머 핸들 추가
+	FTimerHandle GameOverTimerHandle;
+
+	// 게임 오버 호출 함수
+	void CallGameOver();
+
 	UPROPERTY(VisibleAnywhere);
 	bool bIsDead = false;
 
 	UPROPERTY(VisibleAnywhere)
-	float DeathAnimationDuration = 1.5f;
+	float DeathAnimationDuration = 0.75f;
 
 	float CurrentTime = 0;
+	float CurrentTime2 = 0;
 };

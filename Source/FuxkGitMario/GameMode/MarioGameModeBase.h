@@ -23,13 +23,24 @@ public:
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<class ULifeWidget> LifeWidget;
 
-	virtual void GameOver() override;
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<class UStartWidget> StartWidget;
 
-private:
+	virtual void GameOver() override;
+	virtual void BeginPlay() override;
+
 	int32 currentLife = 1;
 
 	// 현재 뷰 포트에 로드된 위젯 저장용 변수
+	UPROPERTY()
 	class ULifeWidget* LifeUI;
+	UPROPERTY()
+	class UStartWidget* StartUI;
 
 	void PrintLife();
+
+	// 타이머 핸들
+	FTimerHandle RestartTimerHandle;
+
+	void HideUIAndRestart(); // UI 숨기고 게임을 재시작하는 함수
 };
