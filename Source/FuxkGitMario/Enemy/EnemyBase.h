@@ -30,8 +30,6 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Enemy")
 	class USphereComponent* SphereComp;
 	
-	UPROPERTY(EditAnywhere, Category = "Enemy")
-	TSubclassOf<ABullet> BulletFactory;
 
 	UFUNCTION()
 	virtual void OnTrapSphereOverlap(UPrimitiveComponent* OverlappedComponent,
@@ -40,13 +38,7 @@ public:
 		int32 OtherBodyIndex,
 		bool bFromSweep,
 		const FHitResult& SweepResult);
-
 private:
-	UPROPERTY(EditAnywhere, Category = "Enemy")
-	float FireRate = 3.0f;
-
-	float CurrentTime = 0.0f;
-
-	UFUNCTION(BlueprintCallable, Category = "Enemy")
-	void Fire();
+	
+	virtual void Fire();
 };

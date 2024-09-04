@@ -41,7 +41,6 @@ public:
 private:
 	FVector Velocity; //현재 속도
 	FVector Acceleration; //현재 가속도
-	FVector PrevTickVelocity; //이전 Tick 속도
 	FVector CustomGravity; //커스텀 중력
 
 	void ApplyPhysics(float DeltaTime);

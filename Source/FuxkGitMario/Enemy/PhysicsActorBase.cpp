@@ -65,19 +65,20 @@ void APhysicsActorBase::ApplyPhysics(float DeltaTime)
 	FVector newLocation = GetActorLocation() + Velocity * DeltaTime;
 	SetActorLocation(newLocation);
 
-	PrevTickVelocity = Velocity;
-	Velocity = FVector::ZeroVector;
+	//속도 초기화
+	//Velocity = FVector::ZeroVector;
 }
 
 void APhysicsActorBase::ApplyCustomGravity()
 {
-	// 질량의 1/10배 * 중력 보다 현재 가속도가 크다면 추가 가속 제외
-	// if(Acceleration.Length() < (Mass * 0.1f * CustomGravity).Length())
-	// {
-	// 	//Custom 중력 방향으로 기본 가속도 추가
-	// }
-	float CalcVelocityDirChange = FVector::DotProduct(PrevTickVelocity.GetSafeNormal(), CustomGravity.GetSafeNormal());
-	UE_LOG(LogTemp, Warning, TEXT("Dot Result : %f"), CalcVelocityDirChange);
-	Acceleration *= CalcVelocityDirChange;
+	//가속도 추가
 	Acceleration += CustomGravity;
+	//최대 가속도 설정 (질량 * 0.1 * Custom중력 Vector의 크기)
+	float MaxAcceleration = Mass * 0.1f * CustomGravity.Size();
+	UE_LOG(LogTemp, Warning, TEXT("CustomGravity X : %.2f, CustomGravity Y : %.2f, CustomGravity Z : %.2f"), CustomGravity.X, CustomGravity.Y, CustomGravity.Z);
+	//가속력 Vector의 크기가 최대 가속력보다 크다면
+	if(Acceleration.Size() > MaxAcceleration)
+	{
+		Acceleration = Acceleration.GetSafeNormal() * MaxAcceleration;
+	}
 }

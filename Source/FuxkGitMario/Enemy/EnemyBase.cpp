@@ -4,7 +4,6 @@
 #include "EnemyBase.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/SphereComponent.h"
-#include "Kismet/GameplayStatics.h"
 #include "Player/Player_Mario.h"
 
 
@@ -44,13 +43,7 @@ void AEnemyBase::BeginPlay()
 void AEnemyBase::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
-	CurrentTime += DeltaTime;
-	if(CurrentTime >= FireRate)
-	{
-		Fire();
-		CurrentTime = 0.0f;
-	}
+	
 }
 
 void AEnemyBase::OnTrapSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
@@ -65,6 +58,6 @@ void AEnemyBase::OnTrapSphereOverlap(UPrimitiveComponent* OverlappedComponent, A
 
 void AEnemyBase::Fire()
 {
-	ABullet* bullet = GetWorld()->SpawnActor<ABullet>(BulletFactory, GetActorLocation(), GetActorRotation());
+	
 }
 
