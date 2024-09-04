@@ -20,6 +20,13 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 	bool bIsActive;
+	
+	UPROPERTY(EditAnywhere, Category = "Trap")
+	float TrapSpeed = 1500.0f;
+
+	UPROPERTY(EditAnywhere, Category = "Trap")
+	float TrapRange = 1500.0f;
+	
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -31,7 +38,6 @@ public:
 	
 	UPROPERTY(EditAnywhere, Category = "Trap")
 	class UBoxComponent* BoxComp;
-	
 
 	// MeshOverlap Function
 	UFUNCTION()

@@ -30,7 +30,7 @@ void ATrap_RotatingTanghulu::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	FRotator newRotation = BoxComp->GetRelativeRotation() + FRotator(0, 0, 1) * 300  * DeltaTime;
+	FRotator newRotation = BoxComp->GetRelativeRotation() + FRotator(0, 0, 1) * TrapSpeed  * DeltaTime;
 	BoxComp->SetRelativeRotation(newRotation);
 }
 

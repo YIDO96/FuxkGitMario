@@ -17,7 +17,7 @@ void ATrap_Block::Tick(float DeltaTime)
 
 void ATrap_Block::ActiveTrap(AActor* Player)
 {
-	Super::ActiveTrap(Player);
+	//Super::ActiveTrap(Player);
 	UE_LOG(LogTemp, Warning, TEXT("Trap Block Active Trap"));
 	FVector PlayerUpVector = Player->GetActorUpVector(); // Player의 UpVector가져오기
 	FVector ImpactDir = GetActorLocation() - Player->GetActorLocation(); // Player -> Trap의 방향벡터
@@ -44,7 +44,7 @@ void ATrap_Block::ActiveTrap(AActor* Player)
 			// Trap Activation
 			UE_LOG(LogTemp, Warning, TEXT("Success AngleDegree <= 15.0f"));
 			//BoxComp->SetCollisionResponseToChannel(ECC_EngineTraceChannel1, ECR_Block);
-			MeshComp->SetCollisionResponseToAllChannels(ECR_Block);
+			//MeshComp->SetCollisionResponseToAllChannels(ECR_Block); //Collision Block으로 변경
 			MeshComp->SetCollisionObjectType(ECC_EngineTraceChannel3); //Collision 프로필 Platform으로 변경
 			MeshComp->SetMaterial(0, ExposeMat); // Material 변경
 		}
