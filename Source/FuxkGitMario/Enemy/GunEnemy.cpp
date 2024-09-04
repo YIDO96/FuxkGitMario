@@ -3,6 +3,9 @@
 
 #include "Enemy/GunEnemy.h"
 
+#include "PhysicsBullet.h"
+#include "Kismet/GameplayStatics.h"
+
 
 AGunEnemy::AGunEnemy()
 {
@@ -29,5 +32,14 @@ void AGunEnemy::Tick(float DeltaTime)
 
 void AGunEnemy::Fire()
 {
-	ABullet* bullet = GetWorld()->SpawnActor<ABullet>(BulletFactory, GetActorLocation(), GetActorRotation());
+	APhysicsBullet* bullet = GetWorld()->SpawnActor<APhysicsBullet>(BulletFactory, GetActorLocation(), GetActorRotation());
+	AActor* player = UGameplayStatics::GetPlayerPawn(GetWorld(), 0);
+	if(bullet && player)
+	{
+		FVector BulletVelocity = player->GetActorLocation() - GetActorLocation(); 
+		FirePower = BulletVelocity.Size();
+		bullet->SetCustomGravity(FVector(0.0f, 0.0f, -980.0f));
+		bullet->SetMass(FirePower * 0.01f);
+		bullet->AddVelocity(BulletVelocity * 0.5f + FVector(0, 0, FirePower));
+	}
 }

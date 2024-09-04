@@ -23,12 +23,14 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	
 	UPROPERTY(EditAnywhere, Category = "Enemy")
-	TSubclassOf<ABullet> BulletFactory;
+	TSubclassOf<class APhysicsBullet> BulletFactory;
 
 	virtual void Fire() override;
 private:
 	UPROPERTY(EditAnywhere, Category = "Enemy")
 	float FireRate = 3.0f;
-
+	UPROPERTY(VisibleAnywhere, Category = "Enemy")
+	float FirePower = 500.0f;
+	
 	float CurrentTime = 0.0f;
 };

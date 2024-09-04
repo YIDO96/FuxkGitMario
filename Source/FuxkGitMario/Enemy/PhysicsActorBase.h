@@ -37,6 +37,12 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "PhysicsActor")
 	void SetCustomGravityTarget(AActor* Target);
+
+	UFUNCTION(BlueprintCallable, Category = "PhysicsActor")
+	void AddVelocity(FVector Value);
+
+	UFUNCTION(BlueprintCallable, Category = "PhysicsActor")
+	void SetMass(float Value);
 	
 private:
 	FVector Velocity; //현재 속도

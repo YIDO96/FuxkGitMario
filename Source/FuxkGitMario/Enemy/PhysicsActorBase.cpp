@@ -32,8 +32,6 @@ APhysicsActorBase::APhysicsActorBase()
 void APhysicsActorBase::BeginPlay()
 {
 	Super::BeginPlay();
-
-	
 }
 
 // Called every frame
@@ -54,6 +52,16 @@ void APhysicsActorBase::SetCustomGravityTarget(AActor* Target)
 {
 	FVector Dir = Target->GetActorLocation() - GetActorLocation();
 	CustomGravity = Dir.GetSafeNormal() * 980.0f;
+}
+
+void APhysicsActorBase::AddVelocity(FVector Value)
+{
+	Velocity += Value;
+}
+
+void APhysicsActorBase::SetMass(float Value)
+{
+	Mass = Value;
 }
 
 void APhysicsActorBase::ApplyPhysics(float DeltaTime)
