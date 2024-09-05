@@ -11,10 +11,10 @@ void UStartWidget::NativeConstruct()
 {
     Super::NativeConstruct();
 
-    btn_GameStart->OnClicked.AddDynamic(this, &UStartWidget::OnGameStartBtnClicked);
+    //btn_GameStart->OnClicked.AddDynamic(this, &UStartWidget::OnGameStartBtnClicked);
 }
 
-void UStartWidget::OnGameStartBtnClicked()
+void UStartWidget::ChangeUIToStart()
 {
     StartCanvas->SetVisibility(ESlateVisibility::Hidden);
 
@@ -22,3 +22,12 @@ void UStartWidget::OnGameStartBtnClicked()
 
     GetWorld()->GetFirstPlayerController()->SetShowMouseCursor(false);
 }
+
+//void UStartWidget::OnGameStartBtnClicked()
+//{
+//    StartCanvas->SetVisibility(ESlateVisibility::Hidden);
+//
+//    GetWorld()->GetFirstPlayerController()->SetInputMode(FInputModeGameOnly());
+//
+//    GetWorld()->GetFirstPlayerController()->SetShowMouseCursor(false);
+//}

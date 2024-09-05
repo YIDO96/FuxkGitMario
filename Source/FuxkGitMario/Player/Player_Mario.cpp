@@ -3,8 +3,10 @@
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/InputComponent.h"
+#include "Components/StaticMeshComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Interface/GameModeInterface.h"
+#include "Kismet/GameplayStatics.h"
 #include "GameFramework/GameModeBase.h"
 
 APlayer_Mario::APlayer_Mario()
@@ -26,6 +28,12 @@ APlayer_Mario::APlayer_Mario()
 	bUseControllerRotationYaw = false;
 	bUseControllerRotationPitch = false;
 	bUseControllerRotationRoll = false;
+
+	CatBody = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("CatBody"));
+	CatBody->SetupAttachment(GetRootComponent());
+	ConstructorHelpers::FObjectFinder<UStaticMesh>InitMesh(TEXT("/Script/Engine.StaticMesh'/Game/Meshes/Cat.Cat'"));
+	CatBody->SetStaticMesh(InitMesh.Object);
+	CatBody->SetRelativeScale3D(FVector(1.0f, 1.0f, 1.7f));
 }
 
 void APlayer_Mario::BeginPlay()
@@ -37,13 +45,12 @@ void APlayer_Mario::BeginPlay()
 void APlayer_Mario::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	
+
 	if(bIsDead) //뒈짖 확인
 	{
 		CurrentTime += DeltaTime;
 		if (CurrentTime < DeathAnimationDuration)//0.75초 동안 가만히
 		{
-			GetWorld()->GetFirstPlayerController()->SetIgnoreMoveInput(true); //플레이어 입력 무시
 			GetCharacterMovement()->Velocity = FVector(0.0f); //움직임(속력) 0으로 고정(애니메이션 좌우 움직임 없도록)
 
 		}
@@ -72,19 +79,45 @@ void APlayer_Mario::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 	PlayerInputComponent->BindAxis(TEXT("Horizontal"), this, &APlayer_Mario::Horizontal);
-	PlayerInputComponent->BindAction(TEXT("Jump"), IE_Pressed, this, &APlayer_Mario::Jump);	
+	PlayerInputComponent->BindAction(TEXT("Jump"), IE_Pressed, this, &APlayer_Mario::Jump);
+	PlayerInputComponent->BindAction(TEXT("Start"), IE_Pressed, this, &APlayer_Mario::Start);
 }
 
 void APlayer_Mario::Horizontal(float AxisValue)
 {
+
+	if ((not CanJump() || AxisValue != 0) && not bIsDead)
+	{
+		CatBody->SetMaterial(0, CatMaterial[1]);
+	}
+	else if (not bIsDead)
+	{
+		CatBody->SetMaterial(0, CatMaterial[0]);
+	}
+
+	//UE_LOG(LogTemp, Warning, TEXT("%s"), *GetComponentByClass<UStaticMeshComponent>()->GetName());
 	AddMovementInput(GetActorRightVector() * AxisValue);
+}
+
+void APlayer_Mario::Start()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Enter"));
+	IGameModeInterface* GameMode = Cast<IGameModeInterface>(UGameplayStatics::GetGameMode(GetWorld()));
+	if (GameMode)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Start Input"));
+		GameMode->StartGame();
+	}
 }
 
 void APlayer_Mario::Die()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Call Player_Mario Die Function"));
 	//GetWorld()->GetFirstPlayerController()->SetInputMode(FInputModeUIOnly());
-	
+	GetWorld()->GetFirstPlayerController()->SetIgnoreMoveInput(true); //플레이어 입력 무시
+	CatBody->SetMaterial(0, CatMaterial[2]);
+
+	UGameplayStatics::PlaySound2D(this, DeadSound);
 	bIsDead = true; // 뒈짖
 }
 
@@ -100,4 +133,10 @@ void APlayer_Mario::CallGameOver()
 			UE_LOG(LogTemp, Warning, TEXT("GameOver called from Player_Mario."));
 		}
 	}
+}
+
+void APlayer_Mario::Jump()
+{
+	Super::Jump();
+	UGameplayStatics::PlaySound2D(this, JumpSound);
 }
