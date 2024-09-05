@@ -1,0 +1,12 @@
+diff a/Config/DefaultEngine.ini b/Config/DefaultEngine.ini	(rejected hunks)
+@@ -1,8 +1,8 @@
+ 
+ 
+ [/Script/EngineSettings.GameMapsSettings]
+-GameDefaultMap=/Game/Maps/TestLevel.TestLevel
+-EditorStartupMap=/Game/Maps/TestLevel.TestLevel
++GameDefaultMap=/Game/Maps/TrapTest.TrapTest
++EditorStartupMap=/Game/Maps/TrapTest.TrapTest
+ GlobalDefaultGameMode=/Script/FuxkGitMario.MarioGameModeBase
+ GameInstanceClass=/Script/FuxkGitMario.MarioGameInstance
+ 
