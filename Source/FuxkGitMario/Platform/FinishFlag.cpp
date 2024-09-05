@@ -13,6 +13,7 @@ AFinishFlag::AFinishFlag()
 	PrimaryActorTick.bCanEverTick = true;
 
 	BoxComp = CreateDefaultSubobject<UBoxComponent>(TEXT("BoxComponent"));
+	LeftBoxComp = CreateDefaultSubobject<UBoxComponent>(TEXT("LeftBoxComponent"));
 	MeshComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MeshComponent"));
 
 	SetRootComponent(BoxComp);
@@ -29,6 +30,7 @@ AFinishFlag::AFinishFlag()
 		MeshComp->SetMaterial(0, defaultMat.Object);
 	}
 	BoxComp->SetCollisionProfileName(TEXT("OverlapAll"));
+	LeftBoxComp->SetCollisionProfileName(TEXT("OverlapAll"));
 	MeshComp->SetCollisionProfileName(TEXT("NoCollision"));
 	
 }
@@ -39,6 +41,7 @@ void AFinishFlag::BeginPlay()
 	Super::BeginPlay();
 
 	BoxComp->OnComponentBeginOverlap.AddDynamic(this,&AFinishFlag::OnTrapBoxOverlap);
+	LeftBoxComp->OnComponentBeginOverlap.AddDynamic(this,&AFinishFlag::OnTrapLeftBoxOverlap);
 }
 
 // Called every frame
@@ -57,6 +60,7 @@ void AFinishFlag::ActiveEvent()
 void AFinishFlag::OnTrapBoxOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
+	IsLeftBox = false;
 	auto player = Cast<APlayer_Mario>(OtherActor);
 	if(player)
 	{
@@ -66,6 +70,22 @@ void AFinishFlag::OnTrapBoxOverlap(UPrimitiveComponent* OverlappedComponent, AAc
 			player->Finish();
 		}
 		
+	}
+}
+
+void AFinishFlag::OnTrapLeftBoxOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	IsLeftBox = true;
+
+	auto player = Cast<APlayer_Mario>(OtherActor);
+	if (player)
+	{
+		//if (IsFinished)
+		{
+			UE_LOG(LogTemp, Warning, TEXT("FinishFlag Overlaps"));
+			player->LeftFinish();
+		}
+
 	}
 }
 

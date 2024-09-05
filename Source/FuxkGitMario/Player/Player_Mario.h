@@ -29,6 +29,8 @@ public:
 	void Start();
 
 	void Finish();
+	void LeftFinish();
+	void FinishHouse();
 
 	virtual void Die() override;
 
@@ -66,6 +68,9 @@ public:
 	
 	bool FuckGitMario = true;
 	bool IsFinsih = false;
+	bool IsLeftFinsih = false;
+	bool IsFinsihHouse = false;
+	bool IsEnemyTread = false;
 private:
 
 	// Ÿ�̸� �ڵ� �߰�
@@ -82,8 +87,10 @@ private:
 
 	float CurrentTime = 0;
 	float CurrentTime2 = 0;
+	float CurrentTimeEnemyTread = 0;
 
 	bool IsStart = false;
 
 	FVector FinishDir;
+	float FinishSpeed= 100;
 };

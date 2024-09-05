@@ -27,16 +27,30 @@ public:
 	class UBoxComponent* BoxComp;
 
 	UPROPERTY(EditAnywhere)
+	class UBoxComponent* LeftBoxComp;
+
+	UPROPERTY(EditAnywhere)
 	class UStaticMeshComponent* MeshComp;
 
 	void ActiveEvent();
 
 	bool IsActiveEvent = false;
 	bool IsFinished = false;
+	bool IsLeftBox = false;
 	
 	// CollisionOverlap Function
 	UFUNCTION()
 	void OnTrapBoxOverlap(UPrimitiveComponent* OverlappedComponent,
+		AActor* OtherActor,
+		UPrimitiveComponent* OtherComp,
+		int32 OtherBodyIndex,
+		bool bFromSweep,
+		const FHitResult& SweepResult);
+
+
+	// CollisionOverlap Function
+	UFUNCTION()
+	void OnTrapLeftBoxOverlap(UPrimitiveComponent* OverlappedComponent,
 		AActor* OtherActor,
 		UPrimitiveComponent* OtherComp,
 		int32 OtherBodyIndex,

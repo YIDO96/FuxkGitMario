@@ -38,5 +38,9 @@ public:
 
 
 	UPROPERTY(EditDefaultsOnly, Category="Settings")
-	TSubclassOf<class AFinishFlag> Flag;
+	TSubclassOf<class ATrapBase> Flag;
+
+	class ATrapBase* Actor;
+	float Time = 5.0;
+	float CurrentTime = 0.0;
 };

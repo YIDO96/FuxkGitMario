@@ -34,7 +34,7 @@ void AMarioCameraActor::Tick(float DeltaTime)
 
 	if (TargetActor)
 	{
-		if (GetActorLocation().Y > 18672.0)
+		if (GetActorLocation().Y > 18092.0)
 		{
 			SetActorLocation(GetActorLocation());
 			return;

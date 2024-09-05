@@ -9,6 +9,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/GameModeBase.h"
 #include "Components/AudioComponent.h"
+#include "Platform/FinishFlag.h"
 
 
 APlayer_Mario::APlayer_Mario()
@@ -52,6 +53,7 @@ void APlayer_Mario::BeginPlay()
 		if (!Sounds->IsPlaying()) // 이미 재생 중이 아니라면
 		{
 			Sounds->Play(); // 사운드 재생
+			Sounds->SetVolumeMultiplier(0.7);
 		}
 	}
 }
@@ -60,22 +62,57 @@ void APlayer_Mario::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	//if (IsEnemyTread)
+	//{
+	//	if (CurrentTimeEnemyTread < 1.0f)
+	//	{
+	//		FVector newLocation = GetActorLocation() + GetActorUpVector() * DeltaTime * GetCharacterMovement()->JumpZVelocity * 0.5f;
+	//		SetActorLocation(newLocation);
+	//	}
+	//	else
+	//	{
+	//		IsEnemyTread = false;
+	//		CurrentTimeEnemyTread = 0.0f;
+	//	}
+	//}
+
+
 	//UE_LOG(LogTemp, Warning, TEXT("IsDeadCall : %d"), FuckGitMario);
 	if (IsFinsih)
 	{
-
-		if (GetActorLocation().Z < 100)
+		UE_LOG(LogTemp, Warning, TEXT("FinishDir X : %.2f, Y : %.2f, Z : %.2f"), FinishDir.X, FinishDir.Y, FinishDir.Z);
+		if (IsFinsihHouse)
 		{
-			FinishDir = GetActorRightVector();
+			FinishDir = GetActorForwardVector();
 		}
 		else
 		{
-			FinishDir = FVector::DownVector;
+			if (GetActorLocation().Z < 100)
+			{
+				FinishDir = GetActorRightVector();
+			}
+			else
+			{
+				FinishDir = FVector::DownVector;
+			}
 		}
-		FVector newLocation = GetActorLocation() + FinishDir * DeltaTime * 100;
+		FVector newLocation = GetActorLocation() + FinishDir * DeltaTime * FinishSpeed;
 		SetActorLocation(newLocation);
 	}
-
+	else if (IsLeftFinsih)
+	{
+		FinishDir = FVector::DownVector;
+		if (GetActorLocation().Z < 100)
+		{
+			FinishSpeed = 1000;
+		}
+		else
+		{
+			FinishSpeed = 100;
+		}
+		FVector newLocation = GetActorLocation() + FinishDir * DeltaTime * FinishSpeed;
+		SetActorLocation(newLocation);
+	}
 
 	if(bIsDead) //뒈짖 확인
 	{
@@ -165,6 +202,30 @@ void APlayer_Mario::Finish()
 	}
 
 	//GetMovementComponent()->GetGravityZ();
+}
+
+void APlayer_Mario::LeftFinish()
+{
+	IsLeftFinsih = true;
+	GetCharacterMovement()->Velocity = FVector(0.0f);
+	GetWorld()->GetFirstPlayerController()->SetIgnoreMoveInput(true); //플레이어 입력 무시
+	//Sounds->Stop();
+	if (Sounds && Sounds->IsPlaying())
+	{
+		Sounds->Stop(); // 사운드 정지
+	}
+	UGameplayStatics::PlaySound2D(this, FinishSound);
+	auto movementComp = Cast<UCharacterMovementComponent>(GetMovementComponent());
+	if (movementComp)
+	{
+		movementComp->GravityScale = 0;
+	}
+}
+
+void APlayer_Mario::FinishHouse()
+{
+	IsFinsihHouse = true;
+	UE_LOG(LogTemp, Warning, TEXT("APlayer_Mario::FinishHouse"));
 }
 
 void APlayer_Mario::Die()

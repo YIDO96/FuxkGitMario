@@ -18,4 +18,7 @@ public:
 	AFinishHouse();
 	
 	virtual void Tick(float DeltaTime) override;
+
+	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<class APlayer_Mario> Pl;
 };

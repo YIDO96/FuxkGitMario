@@ -22,6 +22,7 @@ protected:
 
 	UPROPERTY(EditAnywhere, Category = "Enemy")
 	bool bIsEnemyActive;
+	bool bIsPlayerOverlap = false;
 	
 public:
 	// Called every frame
@@ -29,6 +30,9 @@ public:
 
 	UPROPERTY(EditAnywhere, Category = "Enemy")
 	class UStaticMeshComponent* MeshComp;
+
+	UPROPERTY(EditAnywhere, Category = "Enemy")
+	class UBoxComponent* UpBoxComp;
 
 	UPROPERTY(EditAnywhere, Category = "Enemy")
 	class USphereComponent* SphereComp;
@@ -43,6 +47,14 @@ public:
 	
 	UFUNCTION()
 	virtual void OnMeshOverlap(UPrimitiveComponent* OverlappedComponent,
+		AActor* OtherActor,
+		UPrimitiveComponent* OtherComp,
+		int32 OtherBodyIndex,
+		bool bFromSweep,
+		const FHitResult& SweepResult);
+
+	UFUNCTION()
+	virtual void OnUpBoxOverlap(UPrimitiveComponent* OverlappedComponent,
 		AActor* OtherActor,
 		UPrimitiveComponent* OtherComp,
 		int32 OtherBodyIndex,

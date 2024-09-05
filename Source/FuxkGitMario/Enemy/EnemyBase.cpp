@@ -4,6 +4,7 @@
 #include "EnemyBase.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/SphereComponent.h"
+#include "Components/BoxComponent.h"
 #include "Player/Player_Mario.h"
 
 
@@ -18,6 +19,8 @@ AEnemyBase::AEnemyBase()
 	MeshComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("BulletMesh"));
 	SetRootComponent(MeshComp);
 	
+	UpBoxComp = CreateDefaultSubobject<UBoxComponent>(TEXT("UpBoxComp"));
+	UpBoxComp->SetupAttachment(MeshComp);
 	SphereComp = CreateDefaultSubobject<USphereComponent>(TEXT("BulletCollider"));
 	SphereComp->SetupAttachment(MeshComp);
 	SphereComp->SetSphereRadius(500.0f);
@@ -29,6 +32,8 @@ AEnemyBase::AEnemyBase()
 	MeshComp->SetGenerateOverlapEvents(true);
 	SphereComp->SetCollisionProfileName(TEXT("Trap"));
 	SphereComp->SetGenerateOverlapEvents(true);
+
+	UpBoxComp->SetCollisionProfileName(TEXT("OverlapAll"));
 }
 
 // Called when the game starts or when spawned
@@ -39,6 +44,7 @@ void AEnemyBase::BeginPlay()
 	SphereComp->OnComponentBeginOverlap.AddDynamic(this, &AEnemyBase::OnTrapSphereOverlap);
 	SphereComp->OnComponentEndOverlap.AddDynamic(this, &AEnemyBase::OnEndSphereOverlap);
 	MeshComp->OnComponentBeginOverlap.AddDynamic(this, &AEnemyBase::OnMeshOverlap);
+	UpBoxComp->OnComponentBeginOverlap.AddDynamic(this, &AEnemyBase::OnUpBoxOverlap);
 	
 }
 
@@ -56,6 +62,7 @@ void AEnemyBase::OnTrapSphereOverlap(UPrimitiveComponent* OverlappedComponent, A
 	if(Mario)
 	{
 		bIsEnemyActive = true;
+		bIsPlayerOverlap = true;
 	}
 }
 
@@ -66,6 +73,19 @@ void AEnemyBase::OnMeshOverlap(UPrimitiveComponent* OverlappedComponent, AActor*
 	if(Mario)
 	{
 		Mario->Die();
+	}
+}
+
+void AEnemyBase::OnUpBoxOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, 
+	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	UE_LOG(LogTemp, Warning, TEXT("Enemy OnUpBoxOverlap"));
+	auto Mario = Cast<APlayer_Mario>(OtherActor);
+	if (Mario)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Enemy OnUpBoxOverlap Player"));
+		this->Destroy();
+		Mario->IsEnemyTread = true;
 	}
 }
 
