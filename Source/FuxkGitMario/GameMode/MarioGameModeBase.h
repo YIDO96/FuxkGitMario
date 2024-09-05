@@ -18,14 +18,13 @@ class FUXKGITMARIO_API AMarioGameModeBase : public AGameModeBase , public IGameM
 	
 public:
 
-	void MinusLife(int32 point);
-
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<class ULifeWidget> LifeWidget;
 
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<class UStartWidget> StartWidget;
 
+	virtual void MinusLife(int32 point) override;
 	virtual void GameOver() override;
 	virtual void BeginPlay() override;
 

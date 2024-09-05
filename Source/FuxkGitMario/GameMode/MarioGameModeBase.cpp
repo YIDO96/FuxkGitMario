@@ -10,6 +10,7 @@
 #include "GameFramework/PlayerController.h"
 #include "GameFramework/PlayerStart.h"
 #include "GameFramework/Character.h"
+#include "GameMode/MarioGameInstance.h"
 #include "EngineUtils.h"
 #include "UI/StartWidget.h"
 
@@ -58,15 +59,23 @@ void AMarioGameModeBase::GameOver()
 void AMarioGameModeBase::BeginPlay()
 {
 	Super::BeginPlay();
-
-	StartUI = CreateWidget<UStartWidget>(GetWorld(), StartWidget);
-	if (StartUI)
+	
+	MarioInstance = Cast<UMarioGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+	if (MarioInstance)
 	{
-		StartUI->AddToViewport();
+		currentLife = MarioInstance->LoadLife();
 	}
+	if (currentLife > 0)
+	{
+		StartUI = CreateWidget<UStartWidget>(GetWorld(), StartWidget);
+		if (StartUI)
+		{
+			StartUI->AddToViewport();
+		}
 
-	// 입력모드를 UI 로 설정해주기
-	GetWorld()->GetFirstPlayerController()->SetInputMode(FInputModeUIOnly());
+		// 입력모드를 UI 로 설정해주기
+		GetWorld()->GetFirstPlayerController()->SetInputMode(FInputModeUIOnly());
+	}
 }
 
 void AMarioGameModeBase::HideUIAndRestart()
@@ -77,7 +86,10 @@ void AMarioGameModeBase::HideUIAndRestart()
 		LifeUI->RemoveFromViewport();
 		LifeUI = nullptr;
 	}
-
+	if (MarioInstance)
+	{
+		MarioInstance->SaveLife(currentLife);
+	}
 	UE_LOG(LogTemp, Warning, TEXT("Game Resumed!"));
 	UGameplayStatics::OpenLevel(this, FName("TrapTest"));
 }
