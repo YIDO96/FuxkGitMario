@@ -9,9 +9,34 @@
 /**
  * 
  */
+UENUM(Blueprintable)
+enum class TrapCoin : uint8
+{
+	Coin,
+	Enemy,
+	FinishFlag,
+};
+
+
 UCLASS()
 class FUXKGITMARIO_API ATrap_Coin : public ATrapBase
 {
 	GENERATED_BODY()
+
+public:
+	ATrap_Coin();
 	
+	virtual void Tick(float DeltaTime) override;
+
+	void CreateCoin();	// 
+	void UpCoin();		// Actor가 위로올라오는
+
+	virtual void ActiveTrap() override;
+	
+	UPROPERTY(EditAnywhere, Category = "Enum")
+	TrapCoin Cointype;
+
+
+	UPROPERTY(EditDefaultsOnly, Category="Settings")
+	TSubclassOf<class AFinishFlag> Flag;
 };
