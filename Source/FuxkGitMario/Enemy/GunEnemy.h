@@ -29,8 +29,8 @@ public:
 private:
 	UPROPERTY(EditAnywhere, Category = "Enemy")
 	float FireRate = 3.0f;
-	UPROPERTY(VisibleAnywhere, Category = "Enemy")
+	UPROPERTY(EditAnywhere, Category = "Enemy")
 	float FirePower = 500.0f;
-	
+
 	float CurrentTime = 0.0f;
 };
