@@ -20,12 +20,13 @@ AEnemyBase::AEnemyBase()
 	
 	SphereComp = CreateDefaultSubobject<USphereComponent>(TEXT("BulletCollider"));
 	SphereComp->SetupAttachment(MeshComp);
-	SphereComp->SetSphereRadius(50.0f);
+	SphereComp->SetSphereRadius(500.0f);
 	
 	ConstructorHelpers::FObjectFinder<UStaticMesh>InitMesh(TEXT("/Script/Engine.StaticMesh'/Engine/BasicShapes/Sphere.Sphere'"));
 	MeshComp->SetStaticMesh(InitMesh.Object);
 	
-	MeshComp->SetCollisionProfileName(TEXT("NoCollision"));
+	MeshComp->SetCollisionProfileName(TEXT("Trap"));
+	MeshComp->SetGenerateOverlapEvents(true);
 	SphereComp->SetCollisionProfileName(TEXT("Trap"));
 	SphereComp->SetGenerateOverlapEvents(true);
 }
@@ -36,6 +37,8 @@ void AEnemyBase::BeginPlay()
 	Super::BeginPlay();
 
 	SphereComp->OnComponentBeginOverlap.AddDynamic(this, &AEnemyBase::OnTrapSphereOverlap);
+	SphereComp->OnComponentEndOverlap.AddDynamic(this, &AEnemyBase::OnEndSphereOverlap);
+	MeshComp->OnComponentBeginOverlap.AddDynamic(this, &AEnemyBase::OnMeshOverlap);
 	
 }
 
@@ -52,7 +55,27 @@ void AEnemyBase::OnTrapSphereOverlap(UPrimitiveComponent* OverlappedComponent, A
 	IMarioInterface* Mario = Cast<IMarioInterface>(OtherActor);
 	if(Mario)
 	{
+		bIsEnemyActive = true;
+	}
+}
+
+void AEnemyBase::OnMeshOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
+	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	IMarioInterface* Mario = Cast<IMarioInterface>(OtherActor);
+	if(Mario)
+	{
 		Mario->Die();
+	}
+}
+
+void AEnemyBase::OnEndSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
+	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
+{
+	IMarioInterface* Mario = Cast<IMarioInterface>(OtherActor);
+	if(Mario)
+	{
+		bIsEnemyActive = false;
 	}
 }
 
