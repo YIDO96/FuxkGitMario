@@ -25,8 +25,11 @@ void AGunEnemy::Tick(float DeltaTime)
 	CurrentTime += DeltaTime;
 	if(CurrentTime >= FireRate)
 	{
-		Fire();
-		CurrentTime = 0.0f;
+		if(bIsEnemyActive)
+		{
+			Fire();
+			CurrentTime = 0.0f;
+		}
 	}
 }
 
@@ -37,7 +40,7 @@ void AGunEnemy::Fire()
 	if(bullet && player)
 	{
 		FVector BulletVelocity = player->GetActorLocation() - GetActorLocation(); 
-		FirePower = BulletVelocity.Size();
+		FirePower = BulletVelocity.Size() * 2;
 		bullet->SetCustomGravity(FVector(0.0f, 0.0f, -980.0f));
 		bullet->SetMass(FirePower * 0.01f);
 		bullet->AddVelocity(BulletVelocity * 0.5f + FVector(0, 0, FirePower));
