@@ -28,6 +28,8 @@ public:
 
 	void Start();
 
+	void Finish();
+
 	virtual void Die() override;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
@@ -48,8 +50,22 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sound")
 	USoundWave* DeadSound;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sound")
+	USoundWave* FinishSound;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sound")
+	USoundWave* StartSound;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sound")
+	class UAudioComponent* Sounds;
+
 	virtual void Jump() override;
 
+	virtual void SetIsDeadCall(bool& value) override;
+	virtual bool& GetIsDeadCall() override;
+	
+	bool FuckGitMario = true;
+	bool IsFinsih = false;
 private:
 
 	// Ÿ�̸� �ڵ� �߰�
@@ -68,4 +84,6 @@ private:
 	float CurrentTime2 = 0;
 
 	bool IsStart = false;
+
+	FVector FinishDir;
 };

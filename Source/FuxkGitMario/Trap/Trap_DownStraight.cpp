@@ -34,4 +34,5 @@ void ATrap_DownStraight::ActiveTrap(AActor* Player)
 {
 	bIsActive = true;
 	Target = Cast<APlayer_Mario>(Player);
+	MeshComp->bHiddenInGame = false;
 }

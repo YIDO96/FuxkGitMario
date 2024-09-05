@@ -32,6 +32,7 @@ public:
 	void ActiveEvent();
 
 	bool IsActiveEvent = false;
+	bool IsFinished = false;
 	
 	// CollisionOverlap Function
 	UFUNCTION()

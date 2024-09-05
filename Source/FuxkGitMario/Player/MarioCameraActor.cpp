@@ -34,6 +34,12 @@ void AMarioCameraActor::Tick(float DeltaTime)
 
 	if (TargetActor)
 	{
+		if (GetActorLocation().Y > 18672.0)
+		{
+			SetActorLocation(GetActorLocation());
+			return;
+		}
+
 		// Get the current location of the camera
 		FVector CurrentCameraLocation = GetActorLocation();
 

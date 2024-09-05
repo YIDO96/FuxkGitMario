@@ -21,6 +21,10 @@ class FUXKGITMARIO_API IMarioInterface
 	GENERATED_BODY()
 
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
+
 public:
 	virtual void Die() = 0;
+
+	virtual void SetIsDeadCall(bool& value) = 0;
+	virtual bool& GetIsDeadCall() = 0;
 };

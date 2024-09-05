@@ -32,8 +32,3 @@ void AMario::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 }
 
-void AMario::Die()
-{
-	
-}
-

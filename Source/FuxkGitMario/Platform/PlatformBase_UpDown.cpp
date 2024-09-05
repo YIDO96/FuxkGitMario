@@ -24,7 +24,7 @@ void APlatformBase_UpDown::Tick(float DeltaTime)
 
 	if (IsActiveEvent)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("IsActiveEvent is True"));
+		//UE_LOG(LogTemp, Warning, TEXT("IsActiveEvent is True"));
 		if (Type == EPlatformUPDownType::Platform_Default)
 		{
 			if (randomNumber > 50)

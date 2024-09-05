@@ -3,12 +3,11 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "../Interface/MarioInterface.h"
 #include "GameFramework/Pawn.h"
 #include "Mario.generated.h"
 
 UCLASS()
-class FUXKGITMARIO_API AMario : public APawn, public IMarioInterface
+class FUXKGITMARIO_API AMario : public APawn
 {
 	GENERATED_BODY()
 
@@ -26,7 +25,4 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
-	virtual void Die() override;
-
 };

@@ -99,5 +99,5 @@ void AMarioGameModeBase::HideUIAndRestart()
 		MarioInstance->SaveLife(currentLife);
 	}
 	UE_LOG(LogTemp, Warning, TEXT("Game Resumed!"));
-	UGameplayStatics::OpenLevel(this, FName("TrapTest"));
+	UGameplayStatics::OpenLevel(this, FName("MapTestStage"));
 }

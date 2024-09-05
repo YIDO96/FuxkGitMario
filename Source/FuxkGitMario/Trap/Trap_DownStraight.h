@@ -22,7 +22,7 @@ private:
 
 	FVector Dir;
 	bool IsCollinear = false;
-	float Speed = 3000;
+	float Speed = 500;
 public:
 	virtual void Tick(float DeltaTime) override;
 

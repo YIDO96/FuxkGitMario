@@ -83,7 +83,7 @@ void APhysicsActorBase::ApplyCustomGravity()
 	Acceleration += CustomGravity;
 	//최대 가속도 설정 (질량 * 0.1 * Custom중력 Vector의 크기)
 	float MaxAcceleration = Mass * 0.1f * CustomGravity.Size();
-	UE_LOG(LogTemp, Warning, TEXT("CustomGravity X : %.2f, CustomGravity Y : %.2f, CustomGravity Z : %.2f"), CustomGravity.X, CustomGravity.Y, CustomGravity.Z);
+	//UE_LOG(LogTemp, Warning, TEXT("CustomGravity X : %.2f, CustomGravity Y : %.2f, CustomGravity Z : %.2f"), CustomGravity.X, CustomGravity.Y, CustomGravity.Z);
 	//가속력 Vector의 크기가 최대 가속력보다 크다면
 	if(Acceleration.Size() > MaxAcceleration)
 	{

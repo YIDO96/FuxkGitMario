@@ -60,8 +60,12 @@ void AFinishFlag::OnTrapBoxOverlap(UPrimitiveComponent* OverlappedComponent, AAc
 	auto player = Cast<APlayer_Mario>(OtherActor);
 	if(player)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("FinishFlag Overlaps"));
-		//player-> 함수구현
+		//if (IsFinished)
+		{
+			UE_LOG(LogTemp, Warning, TEXT("FinishFlag Overlaps"));
+			player->Finish();
+		}
+		
 	}
 }
 

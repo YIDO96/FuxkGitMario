@@ -8,6 +8,8 @@
 #include "Interface/GameModeInterface.h"
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/GameModeBase.h"
+#include "Components/AudioComponent.h"
+
 
 APlayer_Mario::APlayer_Mario()
 {
@@ -34,17 +36,46 @@ APlayer_Mario::APlayer_Mario()
 	ConstructorHelpers::FObjectFinder<UStaticMesh>InitMesh(TEXT("/Script/Engine.StaticMesh'/Game/Meshes/Cat.Cat'"));
 	CatBody->SetStaticMesh(InitMesh.Object);
 	CatBody->SetRelativeScale3D(FVector(1.0f, 1.0f, 1.7f));
+
+	Sounds = CreateDefaultSubobject<UAudioComponent>(TEXT("AudioComp"));
+	Sounds->bAutoActivate = false;
+
 }
 
 void APlayer_Mario::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+	if (Sounds && StartSound) 
+	{
+		Sounds->SetSound(StartSound); // 사운드 큐 설정
+		if (!Sounds->IsPlaying()) // 이미 재생 중이 아니라면
+		{
+			Sounds->Play(); // 사운드 재생
+		}
+	}
 }
 
 void APlayer_Mario::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	//UE_LOG(LogTemp, Warning, TEXT("IsDeadCall : %d"), FuckGitMario);
+	if (IsFinsih)
+	{
+
+		if (GetActorLocation().Z < 100)
+		{
+			FinishDir = GetActorRightVector();
+		}
+		else
+		{
+			FinishDir = FVector::DownVector;
+		}
+		FVector newLocation = GetActorLocation() + FinishDir * DeltaTime * 100;
+		SetActorLocation(newLocation);
+	}
+
 
 	if(bIsDead) //뒈짖 확인
 	{
@@ -62,9 +93,10 @@ void APlayer_Mario::Tick(float DeltaTime)
 		}
 		else // 2.25초지나면 Gameover호출
 		{
-			CallGameOver();
 			bIsDead = false;
-
+			CurrentTime = 0;
+			CallGameOver();
+			//FuckGitMario = false;
 			// 딜레이를 준 후에 게임 오버 호출
 			//if (!GetWorld()) return;
 
@@ -86,6 +118,8 @@ void APlayer_Mario::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 void APlayer_Mario::Horizontal(float AxisValue)
 {
 
+	//UE_LOG(LogTemp, Warning, TEXT("Horizontal"));
+	//UE_LOG(LogTemp, Warning, TEXT("AxisValue : %.2f"), AxisValue);
 	if ((not CanJump() || AxisValue != 0) && not bIsDead)
 	{
 		CatBody->SetMaterial(0, CatMaterial[1]);
@@ -95,7 +129,7 @@ void APlayer_Mario::Horizontal(float AxisValue)
 		CatBody->SetMaterial(0, CatMaterial[0]);
 	}
 
-	//UE_LOG(LogTemp, Warning, TEXT("%s"), *GetComponentByClass<UStaticMeshComponent>()->GetName());
+
 	AddMovementInput(GetActorRightVector() * AxisValue);
 }
 
@@ -109,16 +143,49 @@ void APlayer_Mario::Start()
 		IsStart = true;
 		GameMode->StartGame();
 	}
+	//Sounds->Play();
+	//UGameplayStatics::PlaySound2D(this, StartSound);
+}
+
+void APlayer_Mario::Finish()
+{
+	IsFinsih = true;
+	GetCharacterMovement()->Velocity = FVector(0.0f);
+	GetWorld()->GetFirstPlayerController()->SetIgnoreMoveInput(true); //플레이어 입력 무시
+	//Sounds->Stop();
+	if (Sounds && Sounds->IsPlaying())
+	{
+		Sounds->Stop(); // 사운드 정지
+	}
+	UGameplayStatics::PlaySound2D(this, FinishSound);
+	auto movementComp = Cast<UCharacterMovementComponent>(GetMovementComponent());
+	if (movementComp)
+	{
+		movementComp->GravityScale = 0;
+	}
+
+	//GetMovementComponent()->GetGravityZ();
 }
 
 void APlayer_Mario::Die()
 {
+	//UGameplayStatics::StopSound(GetWorld(), SoundToStop, Location);
+
+	if (Sounds && Sounds->IsPlaying())
+	{
+		Sounds->Stop(); // 사운드 정지
+	}
+	if (FuckGitMario)
+	{
+		UGameplayStatics::PlaySound2D(this, DeadSound);
+		FuckGitMario = false;
+	}
+
 	UE_LOG(LogTemp, Warning, TEXT("Call Player_Mario Die Function"));
 	//GetWorld()->GetFirstPlayerController()->SetInputMode(FInputModeUIOnly());
 	GetWorld()->GetFirstPlayerController()->SetIgnoreMoveInput(true); //플레이어 입력 무시
 	CatBody->SetMaterial(0, CatMaterial[2]);
 
-	UGameplayStatics::PlaySound2D(this, DeadSound);
 	bIsDead = true; // 뒈짖
 }
 
@@ -143,8 +210,18 @@ void APlayer_Mario::Jump()
 		return;
 	}
 	Super::Jump();
-	if (CanJump())
+	if (FuckGitMario == false and CanJump())
 	{
 		UGameplayStatics::PlaySound2D(this, JumpSound);
 	}
+}
+
+void APlayer_Mario::SetIsDeadCall(bool& value)
+{
+	FuckGitMario = value;
+}
+
+bool& APlayer_Mario::GetIsDeadCall()
+{
+	return FuckGitMario;
 }
