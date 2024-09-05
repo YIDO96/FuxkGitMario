@@ -9,6 +9,7 @@ APlatformBase_UpDown::APlatformBase_UpDown()
 {
 	BoxComp->SetWorldScale3D(FVector(1,0.5,1));
 	MeshComp->SetWorldScale3D(FVector(1,2,1));
+	BoxComp->SetBoxExtent(FVector(50,80,60));
 }
 
 void APlatformBase_UpDown::BeginPlay()

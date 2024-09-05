@@ -26,8 +26,8 @@ public:
 	UPROPERTY(EditAnywhere, Category = "KillZone")
 	class UBoxComponent* BoxComp;
 
-	UPROPERTY(EditAnywhere, Category="KillZone")
-	FVector KillZoneScale3D = FVector(50.0f);
+	// UPROPERTY(EditAnywhere, Category="KillZone")
+	// FVector KillZoneScale3D = FVector(50.0f);
 	
 	UFUNCTION()
 	void OnKillZoneOverlap(UPrimitiveComponent* OverlappedComponent,

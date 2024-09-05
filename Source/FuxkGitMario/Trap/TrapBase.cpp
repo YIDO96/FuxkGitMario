@@ -72,5 +72,6 @@ void ATrapBase::OnTrapBoxOverlap(UPrimitiveComponent* OverlappedComponent, AActo
 	if (Mario) // 형변환이 성공했다면
 	{
 		ActiveTrap(OtherActor); //부딪힌 Trap의 ActiveTrap함수 호출 (OtherActor는 Player_Mario)
+		ActiveTrap();
 	}
 }

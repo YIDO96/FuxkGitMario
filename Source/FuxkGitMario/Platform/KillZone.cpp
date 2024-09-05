@@ -16,7 +16,6 @@ AKillZone::AKillZone()
 	BoxComp = CreateDefaultSubobject<UBoxComponent>(TEXT("KillZoneBody"));
 	SetRootComponent(BoxComp);
 	BoxComp->SetBoxExtent(FVector(50.0f));
-	
 	BoxComp->SetCollisionProfileName(TEXT("KillZone"));
 	BoxComp->SetGenerateOverlapEvents(true);
 }
