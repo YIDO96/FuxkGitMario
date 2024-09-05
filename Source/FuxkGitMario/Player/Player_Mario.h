@@ -52,10 +52,10 @@ public:
 
 private:
 
-	// Å¸ÀÌ¸Ó ÇÚµé Ãß°¡
+	// Å¸ï¿½Ì¸ï¿½ ï¿½Úµï¿½ ï¿½ß°ï¿½
 	FTimerHandle GameOverTimerHandle;
 
-	// °ÔÀÓ ¿À¹ö È£Ãâ ÇÔ¼ö
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È£ï¿½ï¿½ ï¿½Ô¼ï¿½
 	void CallGameOver();
 
 	UPROPERTY(VisibleAnywhere);
@@ -66,4 +66,6 @@ private:
 
 	float CurrentTime = 0;
 	float CurrentTime2 = 0;
+
+	bool IsStart = false;
 };
