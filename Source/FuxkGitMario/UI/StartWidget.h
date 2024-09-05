@@ -18,9 +18,11 @@ public:
 	UPROPERTY(meta = (BindWidget))
 	class UCanvasPanel* StartCanvas;
 
-	UPROPERTY(meta = (BindWidget))
-	class UButton* btn_GameStart;
+	/*UPROPERTY(meta = (BindWidget))
+	class UButton* btn_GameStart;*/
 
 	UFUNCTION()
-	void OnGameStartBtnClicked();
+	void ChangeUIToStart();
+	/*UFUNCTION()
+	void OnGameStartBtnClicked();*/
 };

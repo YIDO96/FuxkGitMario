@@ -20,6 +20,14 @@ void AMarioGameModeBase::MinusLife(int32 point)
 
 }
 
+void AMarioGameModeBase::StartGame()
+{
+	if (StartUI)
+	{
+		StartUI->ChangeUIToStart();
+	}
+}
+
 void AMarioGameModeBase::PrintLife()
 {
 	if (LifeUI != nullptr)
@@ -74,7 +82,7 @@ void AMarioGameModeBase::BeginPlay()
 		}
 
 		// 입력모드를 UI 로 설정해주기
-		GetWorld()->GetFirstPlayerController()->SetInputMode(FInputModeUIOnly());
+		//GetWorld()->GetFirstPlayerController()->SetInputMode(FInputModeUIOnly());
 	}
 }
 
