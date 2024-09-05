@@ -24,6 +24,8 @@ private:
 public:
 	virtual void Tick(float DeltaTime) override;
 
+	UPROPERTY(EditAnywhere)
+	float Speed = 3000;
 
 	UFUNCTION(BlueprintCallable)
 	virtual void ActiveTrap(AActor* Player) override;
