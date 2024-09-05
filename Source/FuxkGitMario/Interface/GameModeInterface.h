@@ -22,6 +22,7 @@ class FUXKGITMARIO_API IGameModeInterface
 
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
+	virtual void StartGame() = 0;
 	virtual void GameOver() = 0;
 	virtual void MinusLife(int32 point) = 0;
 	

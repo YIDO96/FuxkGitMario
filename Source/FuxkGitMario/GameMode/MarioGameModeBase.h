@@ -25,6 +25,7 @@ public:
 	TSubclassOf<class UStartWidget> StartWidget;
 
 	virtual void MinusLife(int32 point) override;
+	virtual void StartGame() override;
 	virtual void GameOver() override;
 	virtual void BeginPlay() override;
 

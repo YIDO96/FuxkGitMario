@@ -26,6 +26,8 @@ public:
 
 	void Horizontal(float AxisValue);
 
+	void Start();
+
 	virtual void Die() override;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
@@ -34,6 +36,20 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	class USpringArmComponent* SpringArmComp;
 	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TArray<class UMaterialInstance*> CatMaterial;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	class UStaticMeshComponent* CatBody;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sound")
+	USoundWave* JumpSound;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sound")
+	USoundWave* DeadSound;
+
+	virtual void Jump() override;
+
 private:
 
 	// 타이머 핸들 추가
