@@ -20,6 +20,9 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	UPROPERTY(EditAnywhere, Category = "Enemy")
+	bool bIsEnemyActive;
+	
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -30,7 +33,6 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Enemy")
 	class USphereComponent* SphereComp;
 	
-
 	UFUNCTION()
 	virtual void OnTrapSphereOverlap(UPrimitiveComponent* OverlappedComponent,
 		AActor* OtherActor,
@@ -38,7 +40,18 @@ public:
 		int32 OtherBodyIndex,
 		bool bFromSweep,
 		const FHitResult& SweepResult);
-private:
 	
+	UFUNCTION()
+	virtual void OnMeshOverlap(UPrimitiveComponent* OverlappedComponent,
+		AActor* OtherActor,
+		UPrimitiveComponent* OtherComp,
+		int32 OtherBodyIndex,
+		bool bFromSweep,
+		const FHitResult& SweepResult);
+
+	UFUNCTION()
+	virtual void OnEndSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
+	
+private:
 	virtual void Fire();
 };
