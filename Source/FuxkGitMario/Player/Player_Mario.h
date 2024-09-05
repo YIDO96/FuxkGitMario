@@ -27,13 +27,17 @@ public:
 	void Horizontal(float AxisValue);
 
 	virtual void Die() override;
+	virtual void Jump()	override;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	class UCameraComponent* Camera;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	class USpringArmComponent* SpringArmComp;
-	
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Sound")
+	USoundWave* JumpSound;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Sound")
+	USoundWave* DeadSound;
 private:
 	UPROPERTY(VisibleAnywhere);
 	bool bIsDead = false;

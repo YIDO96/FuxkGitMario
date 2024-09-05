@@ -1,9 +1,13 @@
 #include "Player_Mario.h"
+
+#include "AssetTypeActions/AssetDefinition_SoundBase.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/InputComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Kismet/GameplayStatics.h"
+#include "Sound/SoundCue.h"
 
 APlayer_Mario::APlayer_Mario()
 {
@@ -59,7 +63,7 @@ void APlayer_Mario::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 	PlayerInputComponent->BindAxis(TEXT("Horizontal"), this, &APlayer_Mario::Horizontal);
 	PlayerInputComponent->BindAction(TEXT("Jump"), IE_Pressed, this, &APlayer_Mario::Jump);
-
+	
 	
 }
 
@@ -72,6 +76,16 @@ void APlayer_Mario::Die()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Call Player_Mario Die Function"));
 	//GetWorld()->GetFirstPlayerController()->SetInputMode(FInputModeUIOnly());
+	if(!bIsDead)
+	{
+		UGameplayStatics::PlaySound2D(this,DeadSound);
+	}
 	
 	bIsDead = true; // 뒈짖
+}
+
+void APlayer_Mario::Jump()
+{
+	Super::Jump();
+	UGameplayStatics::PlaySound2D(this,JumpSound);
 }
