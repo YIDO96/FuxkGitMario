@@ -177,7 +177,7 @@ void APlayer_Mario::Start()
 	if (GameMode)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Start Input"));
-		IsStart = true;
+		//IsStart = true;
 		GameMode->StartGame();
 	}
 	//Sounds->Play();
@@ -266,12 +266,12 @@ void APlayer_Mario::CallGameOver()
 
 void APlayer_Mario::Jump()
 {
-	if(not IsStart)
-	{
-		return;
-	}
+	//if(not IsStart)
+	//{
+	//	return;
+	//}
 	Super::Jump();
-	if (FuckGitMario == false and CanJump())
+	if (FuckGitMario == true and CanJump())
 	{
 		UGameplayStatics::PlaySound2D(this, JumpSound);
 	}
